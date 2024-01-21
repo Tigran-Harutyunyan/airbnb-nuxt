@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-5xl mx-auto mt-5 px-5">
-    <h3 class="text-xl font-bold">Authentication Overview</h3>
+    <h3 class="text-xl font-bold">Authentication Overview.</h3>
     <p class="text-sm">
       See all available authentication & session information below.
     </p>
