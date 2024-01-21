@@ -1,5 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
-//import GithubProvider from 'next-auth/providers/github'
+import GithubProvider from 'next-auth/providers/github'
+//import GoogleProvider from 'next-auth/providers/github'
 import { NuxtAuthHandler } from '#auth';
 import bcrypt from "bcrypt";
 import prisma from "../../../libs/prismadb";
@@ -9,9 +10,14 @@ export default NuxtAuthHandler({
     secret: process.env.NEXTAUTH_SECRET || 'my-auth-secret',
     // TODO: ADD YOUR OWN AUTHENTICATION PROVIDER HERE, READ THE DOCS FOR MORE: https://sidebase.io/nuxt-auth
     providers: [
-        // GithubProvider.default({
-        //   clientId: process.env.GITHUB_CLIENT_ID || 'enter-your-client-id-here',
-        //   clientSecret: process.env.GITHUB_CLIENT_SECRET || 'enter-your-client-secret-here'
+        // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
+        GithubProvider.default({
+            clientId: process.env.GITHUB_CLIENT_ID || 'enter-your-client-id-here',
+            clientSecret: process.env.GITHUB_CLIENT_SECRET || 'enter-your-client-secret-here'
+        }),
+        // GoogleProvider({
+        //     clientId: process.env.GOOGLE_CLIENT_ID as string,
+        //     clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         // }),
         // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
         CredentialsProvider.default({
