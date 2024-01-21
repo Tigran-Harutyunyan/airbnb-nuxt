@@ -59,7 +59,7 @@
 <script setup lang="ts">
 const { signIn } = useAuth();
 import Heading from "../Heading.vue";
-import Input from "../inputs/input.vue";
+import Input from "../inputs/Input.vue";
 import Button from "../Button.vue";
 import Modal from "../modals/Modal.vue";
 
