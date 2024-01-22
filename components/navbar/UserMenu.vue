@@ -81,12 +81,16 @@ const links = [
                   as="li"
                   :class="menuItemClass"
                   @click="setSigninOpen(true)"
-                />
+                >
+                  Sign in
+                </MenuItem>
                 <MenuItem
                   as="li"
                   :class="menuItemClass"
                   @click="setSignupOpen(true)"
-                />
+                >
+                  Sign out
+                </MenuItem>
               </template>
             </MenuItems>
           </transition>
