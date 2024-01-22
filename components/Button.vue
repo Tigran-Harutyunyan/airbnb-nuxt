@@ -18,22 +18,18 @@
         ${small ? 'border-[1px]' : 'border-2'}
       `"
   >
-    <!-- <Icon v-if="Icon" size="24" class="absolute left-4 top-3" /> -->
+    <div size="24" class="absolute left-4 top-3 w-6 h-6">
+      <slot />
+    </div>
+
     {{ label }}
   </button>
 </template>
 <script setup lang="ts">
-const {
-  label,
-  disabled,
-  outline,
-  small,
-  //icon: Icon,
-} = defineProps<{
+const { label, disabled, outline, small } = defineProps<{
   label: string;
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
-  //icon?: IconType;
 }>();
 </script>
