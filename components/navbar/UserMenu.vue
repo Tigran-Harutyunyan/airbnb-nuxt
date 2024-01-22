@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-
+import Avatar from "~/components/Avatar.vue";
+import HamburgerIcon from "~/components/ui/icons/HamburgerIcon.vue";
 import { useMainStore } from "~/stores/store";
+
 const { data, signOut } = useAuth();
 
 const { setSigninOpen, setSignupOpen } = useMainStore();
@@ -10,14 +12,9 @@ const currentUser = computed(() => {
   return data.value;
 });
 
-// import MenuItem from "~/components/navbar/MenuItem.vue";
-import Avatar from "~/components/Avatar.vue";
-import HamburgerIcon from "~/components/ui/icons/HamburgerIcon.vue";
-
-const router = useRouter();
 const isOpen = ref(false);
 const menuItemClass =
-  "px-4 py-3 text-sm hover:bg-neutral-100 transition font-semibold inline-block w-full";
+  "px-4 py-3 text-sm hover:bg-neutral-100 transition font-semibold inline-block w-full cursor-pointer";
 
 const toggleOpen = () => {
   isOpen.value = !isOpen.value;
@@ -70,10 +67,13 @@ const links = [
                   v-for="link in links"
                   :key="link.href"
                   :href="link.href"
-                  :as="link.href ? 'a' : 'li'"
+                  as="a"
                   :class="menuItemClass"
                 >
                   {{ link.label }}
+                </MenuItem>
+                <MenuItem as="li" :class="menuItemClass" @click="signOut()">
+                  Sign out
                 </MenuItem>
               </template>
               <template v-else>
