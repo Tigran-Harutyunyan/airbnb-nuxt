@@ -1,15 +1,7 @@
 <template>
-  <Modal
-    v-if="isSignupOpen"
-    :disabled="isLoading"
-    :isOpen="isSignupOpen"
-    title="Sign up"
-    actionLabel="Continue"
-    @close="setSignupOpen(false)"
-    @onSubmit="onSubmit"
-  >
-    <template #body>
-      <form class="flex flex-col gap-4">
+  <Modal title="Sign up" :isOpen="isSignupOpen" @close="setSignupOpen(false)">
+    <form @submit.prevent="onSubmit">
+      <div class="flex flex-col gap-4">
         <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
         <Input
           id="email"
@@ -36,23 +28,32 @@
           :errors="errors"
           required
         />
-      </form>
-    </template>
-    <template #footer>
+      </div>
+
       <div class="flex flex-col gap-4 mt-3">
         <hr />
+        <div class="flex flex-col gap-2 py-6">
+          <div class="flex flex-row items-center gap-4 w-full">
+            <Button
+              :disabled="isLoading"
+              label="Continue"
+              type="submit"
+              @click="onSubmit"
+            />
+          </div>
+        </div>
         <SocialLoginButtons />
 
         <div class="text-neutral-500 text-center mt-4 font-light">
           <p>
-            First time using Airbnb?
+            Already have an account?
             <span class="text-neutral-800 cursor-pointer hover:underline">
-              Create an account</span
+              Sign In</span
             >
           </p>
         </div>
       </div>
-    </template>
+    </form>
   </Modal>
 </template>
 

@@ -1,14 +1,6 @@
 <template>
-  <Modal
-    v-if="isSigninOpen"
-    :disabled="isLoading"
-    :isOpen="isSigninOpen"
-    title="Login"
-    actionLabel="Continue"
-    @close="setSigninOpen(false)"
-    @onSubmit="onSubmit"
-  >
-    <template #body>
+  <Modal :isOpen="isSigninOpen" title="Login" @close="setSigninOpen(false)">
+    <form @submit.prevent="onSubmit">
       <div class="flex flex-col gap-4">
         <Heading title="Welcome back" subtitle="Login to your account!" />
         <Input
@@ -29,11 +21,20 @@
           required
         />
       </div>
-    </template>
-    <template #footer>
+
       <div class="flex flex-col gap-4 mt-3">
         <hr />
         <SocialLoginButtons />
+        <div class="flex flex-col gap-2 py-6">
+          <div class="flex flex-row items-center gap-4 w-full">
+            <Button
+              :disabled="isLoading"
+              label="Continue"
+              type="submit"
+              @click="onSubmit"
+            />
+          </div>
+        </div>
         <div class="text-neutral-500 text-center mt-4 font-light">
           <p>
             First time using Airbnb?
@@ -43,7 +44,7 @@
           </p>
         </div>
       </div>
-    </template>
+    </form>
   </Modal>
 </template>
 

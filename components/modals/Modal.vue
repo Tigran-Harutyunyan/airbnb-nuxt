@@ -1,84 +1,76 @@
 <template>
-  <div
-    class="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
-  >
-    <div
-      class="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto"
-    >
-      <div
-        :class="`
-            translate
-            duration-300
-            h-full
-            ${isOpen ? 'translate-y-0' : 'translate-y-full'}
-            ${isOpen ? 'opacity-100' : 'opacity-0'}
-          `"
+  <TransitionRoot appear :show="isOpen" as="template">
+    <Dialog as="div" @close="closeModal" class="relative z-10">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
       >
+        <div class="fixed inset-0 bg-black/25" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 overflow-y-auto">
         <div
-          class="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+          class="flex min-h-full items-center justify-center p-4 text-center"
         >
-          <div
-            class="flex items-center p-6 rounded-t justify-center relative border-b-[1px]"
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0 scale-95"
+            enter-to="opacity-100 scale-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100 scale-100"
+            leave-to="opacity-0 scale-95"
           >
-            <button
-              class="p-1 border-0 hover:opacity-70 transition absolute left-9"
-              @click="emit('close')"
+            <DialogPanel
+              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all"
             >
-              <ModalCloseIcon class="w-[18px] h-[18px] hover:opacity-80" />
-            </button>
-            <div class="text-lg font-semibold">{{ title }}</div>
-          </div>
-
-          <div class="relative p-6 flex-auto">
-            <slot name="body" />
-          </div>
-
-          <div class="flex flex-col gap-2 p-6">
-            <div class="flex flex-row items-center gap-4 w-full">
-              <Button
-                v-if="secondaryActionLabel"
-                :disabled="disabled"
-                :label="secondaryActionLabel"
-                @click="handleSecondaryAction"
-                outline
-              />
-              <Button
-                :disabled="disabled"
-                :label="actionLabel"
-                @click="emit('onSubmit')"
-              />
-            </div>
-            <slot name="footer" />
-          </div>
+              <DialogTitle
+                as="h3"
+                class="flex items-center rounded-t px-2 py-4 justify-center relative border-b-[1px] w-full"
+              >
+                <span
+                  class="p-1 border-0 hover:opacity-70 transition absolute left-5"
+                  @click="closeModal"
+                >
+                  <ModalCloseIcon
+                    class="w-[18px] h-[18px] hover:opacity-80 cursor-pointer"
+                  />
+                </span>
+                <span class="text-lg font-semibold">{{ title }}</span>
+              </DialogTitle>
+              <div class="p-6"><slot /></div>
+            </DialogPanel>
+          </TransitionChild>
         </div>
       </div>
-    </div>
-  </div>
+    </Dialog>
+  </TransitionRoot>
 </template>
 
 <script setup lang="ts">
-import Button from "~/components/Button.vue";
+import {
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/vue";
 import ModalCloseIcon from "~/components/ui/icons/ModalCloseIcon.vue";
-
 const emit = defineEmits<{
   close: [];
-  update: [];
-  onSubmit: [];
-  secondaryAction: [];
 }>();
 
-const { isOpen, title, actionLabel, disabled, secondaryActionLabel } =
-  defineProps<{
-    isOpen?: boolean;
-    title?: string;
-    actionLabel: string;
-    disabled?: boolean;
-    secondaryActionLabel?: string;
-  }>();
+const { isOpen, title } = defineProps<{
+  isOpen?: boolean;
+  title?: string;
+}>();
 
-const handleSecondaryAction = () => {
-  if (disabled) return;
-
-  emit("secondaryAction");
-};
+function closeModal() {
+  emit("close");
+}
 </script>
