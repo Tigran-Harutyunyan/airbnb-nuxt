@@ -10,8 +10,8 @@
             translate
             duration-300
             h-full
-            ${showModal ? 'translate-y-0' : 'translate-y-full'}
-            ${showModal ? 'opacity-100' : 'opacity-0'}
+            ${isOpen ? 'translate-y-0' : 'translate-y-full'}
+            ${isOpen ? 'opacity-100' : 'opacity-0'}
           `"
       >
         <div
@@ -22,9 +22,9 @@
           >
             <button
               class="p-1 border-0 hover:opacity-70 transition absolute left-9"
-              @click="handleClose"
+              @click="emit('close')"
             >
-              <!-- <IoMdClose size="18" /> -->
+              <ModalCloseIcon class="w-[18px] h-[18px] hover:opacity-80" />
             </button>
             <div class="text-lg font-semibold">{{ title }}</div>
           </div>
@@ -55,9 +55,13 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
+import Button from "~/components/Button.vue";
+import ModalCloseIcon from "~/components/ui/icons/ModalCloseIcon.vue";
+
 const emit = defineEmits<{
-  onClose: [];
+  close: [];
   update: [];
   onSubmit: [];
   secondaryAction: [];
@@ -71,24 +75,6 @@ const { isOpen, title, actionLabel, disabled, secondaryActionLabel } =
     disabled?: boolean;
     secondaryActionLabel?: string;
   }>();
-
-const showModal = ref(isOpen);
-
-const handleClose = () => {
-  if (disabled) {
-    return;
-  }
-
-  showModal.value = false;
-
-  setTimeout(() => {
-    emit("onClose");
-  }, 300);
-};
-
-const handleSubmit = () => {
-  emit("onSubmit");
-};
 
 const handleSecondaryAction = () => {
   if (disabled) return;
