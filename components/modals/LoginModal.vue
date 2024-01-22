@@ -1,9 +1,11 @@
 <template>
   <Modal
+    v-if="isSigninOpen"
     :disabled="isLoading"
-    :isOpen="isOpen"
+    :isOpen="isSigninOpen"
     title="Login"
     actionLabel="Continue"
+    @close="setSigninOpen(false)"
     @onSubmit="onSubmit"
   >
     <template #body>
@@ -31,18 +33,7 @@
     <template #footer>
       <div class="flex flex-col gap-4 mt-3">
         <hr />
-        <Button
-          outline
-          label="Continue with Google"
-          icon="FcGoogle"
-          @click="signIn('google')"
-        />
-        <Button
-          outline
-          label="Continue with Github"
-          icon="AiFillGithub"
-          @click="signIn('github')"
-        />
+        <SocialLoginButtons />
         <div class="text-neutral-500 text-center mt-4 font-light">
           <p>
             First time using Airbnb?
@@ -57,14 +48,18 @@
 </template>
 
 <script setup lang="ts">
+import Heading from "~/components/Heading.vue";
+import Input from "~/components/inputs/Input.vue";
+import SocialLoginButtons from "~/components/SocialLoginButtons.vue";
+import Modal from "~/components/modals/Modal.vue";
+
 const { signIn } = useAuth();
-import Heading from "../Heading.vue";
-import Input from "../inputs/Input.vue";
-import Button from "../Button.vue";
-import Modal from "../modals/Modal.vue";
+import { useMainStore } from "~/stores/store";
+const { setSigninOpen } = useMainStore();
+const { isSigninOpen } = storeToRefs(useMainStore());
 
 const isLoading = ref(false);
-const isOpen = ref(true);
+
 const formData = reactive({
   email: "harutyunyan.tigran1975@gmail.com",
   password: "tigran",
@@ -74,6 +69,8 @@ const errors = ref([]);
 const onSubmit = () => {
   isLoading.value = true;
 
+  // TODO: add ZOD validation
+
   signIn("credentials", {
     ...formData,
     redirect: false,
@@ -81,9 +78,8 @@ const onSubmit = () => {
     isLoading.value = false;
 
     if (response?.ok) {
+      setSigninOpen(false);
       // toast.success('Logged in');
-      //router.refresh();
-      //loginModal.onClose();
     }
 
     if (response?.error) {
