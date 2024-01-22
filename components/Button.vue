@@ -1,5 +1,6 @@
 <template>
   <button
+    :type="type"
     :disabled="disabled"
     :class="`
         relative
@@ -19,15 +20,22 @@
       `"
   >
     <div size="24" class="absolute left-4 top-3 w-6 h-6">
-      <slot />
+      <slot name="icon" />
     </div>
 
     {{ label }}
   </button>
 </template>
 <script setup lang="ts">
-const { label, disabled, outline, small } = defineProps<{
+const {
+  label,
+  disabled,
+  outline,
+  small,
+  type = "button",
+} = defineProps<{
   label: string;
+  type?: "button" | "submit";
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
