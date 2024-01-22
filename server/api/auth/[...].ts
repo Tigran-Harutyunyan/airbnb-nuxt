@@ -2,7 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import { NuxtAuthHandler } from '#auth';
-import bcrypt from "bcrypt";
+import { compare } from "bcrypt-ts";
 import prisma from "../../../libs/prismadb";
 
 export default NuxtAuthHandler({
@@ -47,7 +47,7 @@ export default NuxtAuthHandler({
                     throw new Error('Invalid credentials');
                 }
 
-                const isCorrectPassword = await bcrypt.compare(
+                const isCorrectPassword = await compare(
                     credentials.password,
                     user.hashedPassword
                 );
