@@ -3,42 +3,46 @@
     <form @submit.prevent="onSubmit">
       <div class="flex flex-col gap-4">
         <Heading title="Welcome back" subtitle="Login to your account!" />
-        <Input
-          id="email"
-          label="Email"
-          :disabled="isLoading"
-          v-model="formData.email"
-          :errors="errors"
-          required
-        />
-        <Input
-          id="password"
-          label="Password"
-          type="password"
-          v-model="formData.password"
-          :disabled="isLoading"
-          :errors="errors"
-          required
-        />
+
+        <div>
+          <Input
+            id="email"
+            label="Email"
+            v-model="email"
+            :error="errors.email"
+            v-bind="emailProps"
+          />
+          <ErrorMessage name="email" class="text-rose-500 text-sm" />
+        </div>
+        <div>
+          <Input
+            id="password"
+            label="Password(min. 6 characters)"
+            type="password"
+            v-model="password"
+            :error="errors.password"
+            v-bind="passwordProps"
+          />
+          <ErrorMessage name="password" class="text-rose-500 text-sm" />
+        </div>
       </div>
 
       <div class="flex flex-col gap-4 mt-3">
-        <hr />
+        <hr class="my-2" />
+        <Button
+          :disabled="isLoading || !meta.valid"
+          label="Continue"
+          type="submit"
+          @click="onSubmit"
+        />
         <SocialLoginButtons />
-        <div class="flex flex-col gap-2 py-6">
-          <div class="flex flex-row items-center gap-4 w-full">
-            <Button
-              :disabled="isLoading"
-              label="Continue"
-              type="submit"
-              @click="onSubmit"
-            />
-          </div>
-        </div>
-        <div class="text-neutral-500 text-center mt-4 font-light">
+        <div class="text-neutral-500 text-center mt-2 font-light">
           <p>
             First time using Airbnb?
-            <span class="text-neutral-800 cursor-pointer hover:underline">
+            <span
+              class="text-neutral-800 cursor-pointer underline"
+              @click="setSignupOpen(true)"
+            >
               Create an account</span
             >
           </p>
@@ -53,27 +57,38 @@ import Heading from "~/components/Heading.vue";
 import Input from "~/components/inputs/Input.vue";
 import SocialLoginButtons from "~/components/SocialLoginButtons.vue";
 import Modal from "~/components/modals/Modal.vue";
+import * as yup from "yup";
+import { useForm, ErrorMessage } from "vee-validate";
+import { useMainStore } from "~/stores/store";
 
 const { signIn } = useAuth();
-import { useMainStore } from "~/stores/store";
-const { setSigninOpen } = useMainStore();
+
+const { setSigninOpen, setSignupOpen } = useMainStore();
 const { isSigninOpen } = storeToRefs(useMainStore());
 
 const isLoading = ref(false);
+
+const { errors, values, meta, defineField } = useForm({
+  validationSchema: yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().required().min(6),
+  }),
+});
+
+const [email, emailProps] = defineField("email");
+const [password, passwordProps] = defineField("password");
 
 const formData = reactive({
   email: "harutyunyan.tigran1975@gmail.com",
   password: "tigran",
 });
-const errors = ref([]);
 
 const onSubmit = () => {
   isLoading.value = true;
 
-  // TODO: add ZOD validation
-
   signIn("credentials", {
-    ...formData,
+    email: values.email,
+    password: values.password,
     redirect: false,
   }).then((response) => {
     isLoading.value = false;

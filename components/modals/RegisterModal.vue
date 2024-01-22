@@ -3,51 +3,57 @@
     <form @submit.prevent="onSubmit">
       <div class="flex flex-col gap-4">
         <Heading title="Welcome to Airbnb" subtitle="Create an account!" />
-        <Input
-          id="email"
-          label="Email"
-          :disabled="isLoading"
-          v-model="formData.email"
-          :errors="errors"
-          required
-        />
-        <Input
-          id="name"
-          label="Name"
-          :disabled="isLoading"
-          v-model="formData.name"
-          :errors="errors"
-          required
-        />
-        <Input
-          id="password"
-          label="Password"
-          type="password"
-          v-model="formData.password"
-          :disabled="isLoading"
-          :errors="errors"
-          required
-        />
+        <div>
+          <Input
+            id="email"
+            label="Email"
+            v-model="email"
+            :error="errors.email"
+            v-bind="emailProps"
+          />
+          <ErrorMessage name="email" class="text-rose-500 text-sm" />
+        </div>
+        <div>
+          <Input
+            id="name"
+            label="Name"
+            v-model="name"
+            v-bind="nameProps"
+            :error="errors.name"
+          />
+          <ErrorMessage name="name" class="text-rose-500 text-sm" />
+        </div>
+        <div>
+          <Input
+            id="password"
+            label="Password"
+            type="password"
+            v-model="password"
+            v-bind="passwordProps"
+            :error="errors.password"
+          />
+          <ErrorMessage name="password" class="text-rose-500 text-sm" />
+        </div>
       </div>
 
       <div class="flex flex-col gap-4 mt-3">
-        <hr />
-        <div class="flex flex-col gap-2 py-6">
-          <div class="flex flex-row items-center gap-4 w-full">
-            <Button
-              :disabled="isLoading"
-              label="Continue"
-              type="submit"
-              @click="onSubmit"
-            />
-          </div>
-        </div>
+        <hr class="my-2" />
+
+        <Button
+          :disabled="isLoading || !meta.valid"
+          label="Continue"
+          type="submit"
+          @click="onSubmit"
+        />
         <SocialLoginButtons />
 
-        <div class="text-neutral-500 text-center mt-4 font-light">
+        <div class="text-neutral-500 text-center mt-2 font-light">
           <p>
             Already have an account?
-            <span class="text-neutral-800 cursor-pointer hover:underline">
+            <span
+              class="text-neutral-800 cursor-pointer underline"
+              @click="setSigninOpen(true)"
+            >
               Sign In</span
             >
           </p>
@@ -62,6 +68,8 @@ import SocialLoginButtons from "~/components/SocialLoginButtons.vue";
 import Heading from "~/components/Heading.vue";
 import Input from "~/components/inputs/Input.vue";
 import Modal from "~/components/modals/Modal.vue";
+import * as yup from "yup";
+import { useForm, ErrorMessage } from "vee-validate";
 
 import { useMainStore } from "~/stores/store";
 
@@ -75,12 +83,17 @@ const { isSignupOpen } = storeToRefs(useMainStore());
 
 const isLoading = ref(false);
 
-const formData = reactive({
-  name: "",
-  email: "",
-  password: "",
+const { errors, values, meta, defineField } = useForm({
+  validationSchema: yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().required().min(6),
+    name: yup.string().required().min(2),
+  }),
 });
-const errors = ref([]);
+
+const [email, emailProps] = defineField("email");
+const [password, passwordProps] = defineField("password");
+const [name, nameProps] = defineField("name");
 
 const onSubmit = async () => {
   isLoading.value = true;
@@ -88,10 +101,8 @@ const onSubmit = async () => {
   try {
     const response = await $fetch("/api/register", {
       method: "post",
-      body: formData,
+      body: values,
     });
-
-    console.log(response);
 
     if (isUser(response)) {
       setSigninOpen(true);
