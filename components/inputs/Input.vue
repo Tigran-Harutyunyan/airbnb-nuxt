@@ -9,7 +9,6 @@
       :id="id"
       v-model="modelValue"
       :disabled="disabled"
-      placeholder=" "
       :type="type"
       :class="`
           peer
@@ -18,15 +17,18 @@
           pt-6 
           font-light 
           bg-white 
-          border-2
+          border-[1px]
           rounded-md
           outline-none
           transition
           disabled:opacity-70
           disabled:cursor-not-allowed
           ${formatPrice ? 'pl-9' : 'pl-4'}
-          ${errors[id] ? 'border-rose-500' : 'border-neutral-300'}
-          ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
+          ${
+            error
+              ? 'border-rose-500 focus:border-rose-500'
+              : 'border-neutral-300 focus:border-black'
+          } 
         `"
     />
     <label
@@ -44,7 +46,7 @@
           peer-focus:scale-75
           peer-focus:-translate-y-4
           ${formatPrice ? 'left-9' : 'left-4'}
-          ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
+          ${error ? 'text-rose-500' : 'text-zinc-400'}
         `"
     >
       {{ label }}
@@ -61,15 +63,13 @@ const {
   type = "text",
   disabled,
   formatPrice,
-  required,
-  errors,
+  error,
 } = defineProps<{
   id: string;
   label: string;
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;
-  required?: boolean;
-  errors: any[];
+  error: string | undefined;
 }>();
 </script>
