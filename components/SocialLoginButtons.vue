@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Button from "./Button.vue";
-import GithubIcon from "./ui/icons/GithubIcon.vue";
-import GoogleIcon from "./ui/icons/GoogleIcon.vue";
+import Button from "~/components/Button.vue";
+import GithubIcon from "~/components/ui/icons/GithubIcon.vue";
+import GoogleIcon from "~/components/ui/icons/GoogleIcon.vue";
 
 const { signIn } = useAuth();
 </script>
