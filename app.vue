@@ -2,11 +2,8 @@
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-
-  <ModalsContainer v-if="status != 'authenticated'" />
+  <ModalsContainer />
 </template>
 <script setup lang="ts">
-import ModalsContainer from "./components/modals/ModalsContainer.vue";
-
-const { status } = useAuth();
+import ModalsContainer from "~/components/modals/ModalsContainer.vue";
 </script>
