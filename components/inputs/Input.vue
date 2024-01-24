@@ -2,8 +2,7 @@
   <div class="w-full relative">
     <DollarIcon
       v-if="formatPrice"
-      size="24"
-      class="text-neutral-700 absolute top-5 left-2"
+      class="text-neutral-700 absolute top-5 left-2 w-6 h-6"
     />
     <input
       :id="id"
