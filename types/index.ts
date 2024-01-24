@@ -22,3 +22,11 @@ export type SafeUser = Omit<
   updatedAt: string;
   emailVerified: string | null;
 };
+
+export interface ILocation {
+  flag?: string;
+  label?: string;
+  latlng: number[];
+  region?: string;
+  value?: string;
+};
