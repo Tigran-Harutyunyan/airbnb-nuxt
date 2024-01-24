@@ -3,6 +3,11 @@ import { defineStore } from "pinia";
 export const useMainStore = defineStore("main", () => {
   const isSigninOpen = ref(false);
   const isSignupOpen = ref(false);
+  const isRentModalOpen = ref(true);
+
+  function setRentModalOpen(isOpen: boolean) {
+    isRentModalOpen.value = isOpen;
+  }
 
   function setSigninOpen(isOpen: boolean) {
     if (isOpen && isSignupOpen.value) {
@@ -23,7 +28,9 @@ export const useMainStore = defineStore("main", () => {
   return {
     isSigninOpen,
     isSignupOpen,
+    isRentModalOpen,
+    setRentModalOpen,
     setSigninOpen,
-    setSignupOpen
+    setSignupOpen,
   };
 });
