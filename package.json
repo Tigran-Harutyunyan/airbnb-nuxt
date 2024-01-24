@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "nuxt-airbnb",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "prisma generate && nuxt prepare"
+    "postinstall": "prisma generate && nuxt prepare" 
+ 
   },
   "devDependencies": {
     "@ant-design-vue/nuxt": "^1.4.1",
@@ -26,10 +27,11 @@
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.8.1",
     "@vee-validate/nuxt": "^4.12.4",
+    "@vee-validate/yup": "^4.12.4",
     "@vueuse/nuxt": "^10.7.2",
     "bcrypt-ts": "^5.0.1",
     "date-fns": "^3.3.0",
-    "next-auth": "^4.21.1",
+    "next-auth": "4.21.1",
     "pinia": "^2.1.7",
     "prisma": "^5.8.1",
     "query-string": "^8.1.0",
