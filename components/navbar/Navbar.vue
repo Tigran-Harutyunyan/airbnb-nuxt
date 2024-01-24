@@ -1,9 +1,15 @@
 <script setup lang="ts">
-//import Categories from "~/components/Categories";
+import Categories from "~/components/navbar/Categories.vue";
 import Container from "~/components/Container.vue";
 import Logo from "~/components/navbar/Logo.vue";
-// import Search from "~/components/Search";
+import Search from "~/components/navbar/Search.vue";
 import UserMenu from "~/components/navbar/UserMenu.vue";
+
+const route = useRoute();
+
+const isMainPage = computed(() => {
+  return route.path === "/";
+});
 </script>
 
 <template>
@@ -12,11 +18,11 @@ import UserMenu from "~/components/navbar/UserMenu.vue";
       <Container>
         <div class="flex flex-row items-center justify-between gap-3 md:gap-0">
           <Logo />
-          <!-- <Search /> -->
+          <Search />
           <UserMenu />
         </div>
       </Container>
     </div>
-    <!-- <Categories /> -->
+    <Categories v-show="isMainPage" />
   </div>
 </template>
