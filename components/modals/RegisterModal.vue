@@ -11,7 +11,7 @@
             :error="errors.email"
             v-bind="emailProps"
           />
-          <ErrorMessage name="email" class="text-rose-500 text-sm" />
+          <ErrorMessage name="email" class="error-message" />
         </div>
         <div>
           <Input
@@ -21,7 +21,7 @@
             v-bind="nameProps"
             :error="errors.name"
           />
-          <ErrorMessage name="name" class="text-rose-500 text-sm" />
+          <ErrorMessage name="name" class="error-message" />
         </div>
         <div>
           <Input
@@ -32,7 +32,7 @@
             v-bind="passwordProps"
             :error="errors.password"
           />
-          <ErrorMessage name="password" class="text-rose-500 text-sm" />
+          <ErrorMessage name="password" class="error-message" />
         </div>
       </div>
 
