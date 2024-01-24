@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+html,
+body,
+:root {
+  height: 100%;
+  font-family:'Nunito', 'system-ui'
+}
+  
+.error-message {
+  @apply text-rose-500 text-sm
+}

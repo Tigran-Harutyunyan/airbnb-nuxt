@@ -28,6 +28,7 @@
           >
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all"
+              :class="styles"
             >
               <DialogTitle
                 as="h3"
@@ -65,9 +66,10 @@ const emit = defineEmits<{
   close: [];
 }>();
 
-const { isOpen, title } = defineProps<{
+const { isOpen, title, styles } = defineProps<{
   isOpen?: boolean;
   title?: string;
+  styles?: string;
 }>();
 
 function closeModal() {

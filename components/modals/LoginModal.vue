@@ -12,18 +12,18 @@
             :error="errors.email"
             v-bind="emailProps"
           />
-          <ErrorMessage name="email" class="text-rose-500 text-sm" />
+          <ErrorMessage name="email" class="error-message" />
         </div>
         <div>
           <Input
             id="password"
-            label="Password(min. 6 characters)"
+            label="Password (min. 6 characters)"
             type="password"
             v-model="password"
             :error="errors.password"
             v-bind="passwordProps"
           />
-          <ErrorMessage name="password" class="text-rose-500 text-sm" />
+          <ErrorMessage name="password" class="error-message" />
         </div>
       </div>
 
