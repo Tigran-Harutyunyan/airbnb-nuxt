@@ -6,7 +6,7 @@ import { useMainStore } from "~/stores/store";
 
 const { data, signOut } = useAuth();
 
-const { setSigninOpen, setSignupOpen } = useMainStore();
+const { setSigninOpen, setSignupOpen, setRentModalOpen } = useMainStore();
 
 const currentUser = computed(() => {
   return data.value;
@@ -24,15 +24,22 @@ const links = [
   { href: "/trips", label: "My trips" },
   { href: "/favorites", label: "My favorites" },
   { href: "/reservations", label: "My reservations" },
-  { href: "", label: "Airbnb your home" },
 ];
+
+const onRent = () => {
+  if (currentUser.value) {
+    setRentModalOpen(true);
+  } else {
+    setSigninOpen(true);
+  }
+};
 </script>
 
 <template>
   <div class="relative">
     <div class="flex flex-row items-center gap-3 relative">
       <div
-        click="onRent"
+        @click="onRent"
         class="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
       >
         Airbnb your home
@@ -71,6 +78,9 @@ const links = [
                 :class="menuItemClass"
               >
                 {{ link.label }}
+              </MenuItem>
+              <MenuItem as="li" :class="menuItemClass" @click="onRent()">
+                Airbnb your home
               </MenuItem>
               <MenuItem as="li" :class="menuItemClass" @click="signOut()">
                 Sign out
