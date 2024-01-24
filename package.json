@@ -10,15 +10,19 @@
     "postinstall": "prisma generate && nuxt prepare"
   },
   "devDependencies": {
+    "@ant-design-vue/nuxt": "^1.4.1",
     "@nuxt/image": "^1.3.0",
     "@nuxtjs/tailwindcss": "^6.10.4",
     "@sidebase/nuxt-auth": "^0.6.5",
+    "@types/vue-select": "^3.16.8",
     "nuxt": "^3.9.3",
     "nuxt-headlessui": "^1.1.5",
+    "nuxt3-leaflet": "^1.0.12",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@nuxtjs/cloudinary": "^2.5.2",
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.8.1",
     "@vee-validate/nuxt": "^4.12.4",
@@ -29,6 +33,8 @@
     "pinia": "^2.1.7",
     "prisma": "^5.8.1",
     "query-string": "^8.1.0",
+    "vue-select": "^4.0.0-beta.6",
+    "world-countries": "^5.0.0",
     "yup": "^1.3.3"
   }
 }

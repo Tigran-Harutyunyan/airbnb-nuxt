@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth', '@pinia/nuxt', "@nuxt/image", "nuxt-headlessui", "@vee-validate/nuxt"],
+  modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth', '@pinia/nuxt', "nuxt-headlessui", "@vee-validate/nuxt", "@nuxtjs/cloudinary", "nuxt3-leaflet", "@ant-design-vue/nuxt", "@nuxt/image"],
+
   app: {
     head: {
       charset: 'utf-16',

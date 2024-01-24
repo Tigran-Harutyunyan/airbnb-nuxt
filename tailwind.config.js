@@ -2,7 +2,11 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        "social-btn-hover": "#f7f7f7",
+      },
+    },
   },
   plugins: [],
 };
