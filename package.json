@@ -7,8 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "prisma generate && nuxt prepare" 
- 
+    "postinstall": "prisma generate && nuxt prepare"
   },
   "devDependencies": {
     "@ant-design-vue/nuxt": "^1.4.1",
@@ -18,6 +17,7 @@
     "@types/vue-select": "^3.16.8",
     "nuxt": "^3.9.3",
     "nuxt-headlessui": "^1.1.5",
+    "nuxt-primevue": "^0.2.2",
     "nuxt3-leaflet": "^1.0.12",
     "vue": "^3.4.14",
     "vue-router": "^4.2.5"
@@ -33,6 +33,7 @@
     "date-fns": "^3.3.0",
     "next-auth": "4.21.1",
     "pinia": "^2.1.7",
+    "primevue": "^3.47.1",
     "prisma": "^5.8.1",
     "query-string": "^8.1.0",
     "vue-select": "^4.0.0-beta.6",

@@ -42,6 +42,7 @@ const handleUpload = (res: Response) => {
   <CldUploadWidget
     v-slot="{ open }"
     :uploadPreset="uploadTest"
+    :options="{ maxFiles: 1 }"
     @upload="handleUpload"
   >
     <div

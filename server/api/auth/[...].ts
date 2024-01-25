@@ -43,6 +43,7 @@ export default NuxtAuthHandler({
                     }
                 });
 
+
                 if (!user || !user?.hashedPassword) {
                     throw new Error('Invalid credentials');
                 }

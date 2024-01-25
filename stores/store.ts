@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useMainStore = defineStore("main", () => {
   const isSigninOpen = ref(false);
   const isSignupOpen = ref(false);
-  const isRentModalOpen = ref(true);
+  const isRentModalOpen = ref(false);
 
   function setRentModalOpen(isOpen: boolean) {
     isRentModalOpen.value = isOpen;
