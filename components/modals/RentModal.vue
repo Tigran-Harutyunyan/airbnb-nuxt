@@ -9,6 +9,9 @@ import Heading from "~/components/Heading.vue";
 import { useMainStore } from "~/stores/store";
 import { useCategories } from "~/composables/useCategories";
 import { type ILocation } from "~/types/index";
+import { useToastService } from "~/composables/useToast";
+
+const toastService = useToastService();
 
 const categories = useCategories();
 
@@ -23,6 +26,7 @@ enum STEPS {
 const step = ref(STEPS.CATEGORY);
 
 const isLoading = ref(false);
+const showForm = ref(true);
 
 interface IFormData {
   category: string;
@@ -36,9 +40,9 @@ interface IFormData {
   description: string;
 }
 
-const formData = reactive<IFormData>({
+const initialForm = ref({
   category: "",
-  location: { latlng: [] },
+  location: null,
   guestCount: 1,
   roomCount: 1,
   bathroomCount: 1,
@@ -47,6 +51,8 @@ const formData = reactive<IFormData>({
   title: "",
   description: "",
 });
+
+const formData = reactive<IFormData>(getNewCopy(initialForm.value));
 
 const { setRentModalOpen } = useMainStore();
 const { isRentModalOpen } = storeToRefs(useMainStore());
@@ -68,9 +74,17 @@ const secondaryActionLabel = computed(() => {
 });
 
 const nextStepIsDisabled = computed(() => {
-  //   if (step.value === STEPS.CATEGORY && !formData.category) return true;
-  //   if (step.value === STEPS.LOCATION && !formData.location) return true;
-  // if (step.value === STEPS.INFO && !formData.location) return false;
+  // Trivial validation
+  if (step.value === STEPS.CATEGORY && !formData.category) return true;
+  if (step.value === STEPS.LOCATION && !formData.location) return true;
+  if (step.value === STEPS.INFO && !formData.location) return true;
+  if (step.value === STEPS.IMAGES && !formData.imageSrc) return true;
+  if (
+    step.value === STEPS.DESCRIPTION &&
+    (formData.title.length === 0 || formData.description.length === 0)
+  )
+    return true;
+
   return false;
 });
 
@@ -91,44 +105,59 @@ const onCounterChange = (info: any) => {
 };
 
 const onImageUpload = (img: string) => {
-  Object.assign(formData, { imgSrc: img });
+  Object.assign(formData, { imageSrc: img });
 };
 
-const onLocationChange = (value: ILocation) => {
-  Object.assign(formData, { location: value });
+const resetForm = async () => {
+  showForm.value = false;
+  Object.assign(formData, getNewCopy(initialForm.value));
+  await nextTick();
+  showForm.value = true;
+  step.value = STEPS.CATEGORY;
 };
 
-const onSubmit = (data) => {
+const onSubmit = async () => {
   if (step.value !== STEPS.PRICE) {
     return onNext();
   }
 
-  isLoading.value = true;
+  try {
+    isLoading.value = true;
 
-  // axios.post('/api/listings', data)
-  // .then(() => {
-  //   toast.success('Listing created!');
-  //   router.refresh();
-  //   reset();
-  //   step.value = STEPS.CATEGORY
-  //   rentModal.onClose();
-  // })
-  // .catch(() => {
-  //   toast.error('Something went wrong.');
-  // })
-  // .finally(() => {
-  //     isLoading.value = false;
-  // })
+    await $fetch("/api/listings", {
+      method: "post",
+      body: formData,
+    });
+
+    toastService.add({
+      severity: "success",
+      summary: "Success",
+      detail: "You have successfully added a property",
+    });
+    setRentModalOpen(false);
+    resetForm();
+  } catch (e) {
+    toastService.add({
+      severity: "error",
+      summary: "Property registration error",
+      detail: e?.data?.message,
+    });
+  } finally {
+    isLoading.value = false;
+  }
 };
+function getNewCopy(obj: object) {
+  return JSON.parse(JSON.stringify(obj));
+}
 </script>
 <template>
   <Modal
     :isOpen="isRentModalOpen"
-    title="Airbnbyour home!"
+    title="Airbnb your home!"
     @close="setRentModalOpen(false)"
     styles="max-w-[570px]"
   >
-    <div>
+    <div v-if="showForm">
       <div class="flex flex-col gap-8" v-show="step === STEPS.CATEGORY">
         <Heading
           title="Which of these best describes your place?"
@@ -153,11 +182,8 @@ const onSubmit = (data) => {
           title="Where is your place located?"
           subtitle="Help guests find you!"
         />
-        <CountrySelect @change="onLocationChange" />
-        <Map
-          :center="formData?.location?.latlng"
-          v-if="formData?.location?.latlng.length"
-        />
+        <CountrySelect v-model="formData.location" />
+        <Map v-if="formData?.location" :center="formData?.location?.latlng" />
       </div>
 
       <div class="flex flex-col gap-8" v-show="step === STEPS.INFO">
@@ -206,7 +232,7 @@ const onSubmit = (data) => {
         <Input
           id="title"
           label="Title"
-          :disabled="isLoading"
+          :disabled="false"
           error=""
           v-model="formData.title"
         />
@@ -214,8 +240,7 @@ const onSubmit = (data) => {
         <Input
           id="description"
           label="Description"
-          :disabled="isLoading"
-          register="register"
+          :disabled="false"
           error=""
           v-model="formData.description"
         />
@@ -249,6 +274,7 @@ const onSubmit = (data) => {
           <Button
             :disabled="nextStepIsDisabled"
             :label="actionLabel"
+            type="submit"
             @click="onSubmit"
           />
         </div>
