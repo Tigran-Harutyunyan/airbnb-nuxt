@@ -78,11 +78,6 @@ const { errors, values, meta, defineField } = useForm({
 const [email, emailProps] = defineField("email");
 const [password, passwordProps] = defineField("password");
 
-const formData = reactive({
-  email: "harutyunyan.tigran1975@gmail.com",
-  password: "tigran",
-});
-
 const onSubmit = () => {
   isLoading.value = true;
 
@@ -95,6 +90,7 @@ const onSubmit = () => {
 
     if (response?.ok) {
       setSigninOpen(false);
+      location.reload();
       // toast.success('Logged in');
     }
 
