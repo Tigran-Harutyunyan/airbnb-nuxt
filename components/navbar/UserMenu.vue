@@ -3,16 +3,27 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import Avatar from "~/components/Avatar.vue";
 import HamburgerIcon from "~/components/ui/icons/HamburgerIcon.vue";
 import { useMainStore } from "~/stores/store";
+import { type IUser } from "~/types";
+
+const refreshing = ref(false);
 
 const { data, signOut } = useAuth();
 
-const { setSigninOpen, setSignupOpen, setRentModalOpen } = useMainStore();
+const { setSigninOpen, setSignupOpen, setRentModalOpen, setUser } =
+  useMainStore();
 
 const currentUser = computed(() => {
-  return data.value;
+  return data.value as IUser;
+});
+
+watchEffect(() => {
+  if (currentUser.value) {
+    setUser(currentUser.value);
+  }
 });
 
 const isOpen = ref(false);
+
 const menuItemClass =
   "px-4 py-3 text-sm hover:bg-neutral-100 transition font-semibold inline-block w-full cursor-pointer";
 
@@ -31,6 +42,15 @@ const onRent = () => {
     setRentModalOpen(true);
   } else {
     setSigninOpen(true);
+  }
+};
+
+const refreshAll = async () => {
+  refreshing.value = true;
+  try {
+    await refreshNuxtData();
+  } finally {
+    refreshing.value = false;
   }
 };
 </script>
