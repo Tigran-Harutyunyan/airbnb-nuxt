@@ -11,6 +11,19 @@ export default defineEventHandler(async (event) => {
         password,
     } = body;
 
+    const user = await prisma.user.findFirst({
+        where: {
+            email: email
+        }
+    })
+
+    if (user) {
+        throw createError({
+            statusCode: 500,
+            statusMessage: "User with your email already exists"
+        })
+    }
+
     const hashedPassword = await hashSync(password, 12);
 
     try {
