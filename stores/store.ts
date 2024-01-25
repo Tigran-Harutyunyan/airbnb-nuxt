@@ -1,9 +1,16 @@
 import { defineStore } from "pinia";
+import { type IUser } from "~/types";
+
 
 export const useMainStore = defineStore("main", () => {
   const isSigninOpen = ref(false);
   const isSignupOpen = ref(false);
   const isRentModalOpen = ref(false);
+  const currentUser = ref<IUser>();
+
+  function setUser(user: IUser) {
+    currentUser.value = user;
+  }
 
   function setRentModalOpen(isOpen: boolean) {
     isRentModalOpen.value = isOpen;
@@ -32,5 +39,7 @@ export const useMainStore = defineStore("main", () => {
     setRentModalOpen,
     setSigninOpen,
     setSignupOpen,
+    setUser,
+    currentUser
   };
 });
