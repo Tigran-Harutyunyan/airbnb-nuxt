@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Select } from "ant-design-vue";
-import type { SelectProps } from "ant-design-vue";
+const modelValue = defineModel();
 
 import { useCountries } from "~/composables/useCountries";
 
@@ -8,29 +7,32 @@ const emit = defineEmits(["change"]);
 
 const { getAll } = useCountries();
 
-const options = ref<SelectProps["options"]>(getAll());
-
-const selectedLocation = ref();
-
-const onChange = () => {
-  const filtered = options.value?.find(
-    (item) => item.value === selectedLocation.value
-  );
-  emit("change", filtered);
-};
+const options = ref(getAll());
 </script>
 
 <template>
-  <Select
-    v-model:value="selectedLocation"
-    style="width: 100%"
-    placeholder="Select a country"
+  <Dropdown
+    v-model="modelValue"
+    filter
     :options="options"
-    @change="onChange"
+    optionLabel="label"
+    placeholder="Select your country"
+    class="w-full"
   >
-    <template #option="{ value: val, label, flag }">
-      <span role="img" :aria-label="val">{{ flag }}</span>
-      &nbsp;&nbsp;{{ label }}
+    <template #value="slotProps">
+      <div v-if="slotProps.value" class="flex items-center">
+        {{ slotProps.value.flag }}
+        <div class="ml-2">{{ slotProps.value.label }}</div>
+      </div>
+      <span v-else>
+        {{ slotProps.placeholder }}
+      </span>
     </template>
-  </Select>
+    <template #option="slotProps">
+      <div class="flex items-center">
+        {{ slotProps.option.flag }}
+        <div class="ml-2">{{ slotProps.option.label }}</div>
+      </div>
+    </template>
+  </Dropdown>
 </template>
