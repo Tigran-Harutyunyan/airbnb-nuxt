@@ -70,6 +70,9 @@ import Input from "~/components/inputs/Input.vue";
 import Modal from "~/components/modals/Modal.vue";
 import * as yup from "yup";
 import { useForm, ErrorMessage } from "vee-validate";
+import { useToastService } from "~/composables/useToast";
+
+const toastService = useToastService();
 
 import { useMainStore } from "~/stores/store";
 
@@ -97,7 +100,7 @@ const [name, nameProps] = defineField("name");
 
 const onSubmit = async () => {
   isLoading.value = true;
-  // TODO: add ZOD validation
+
   try {
     const response = await $fetch("/api/register", {
       method: "post",
@@ -106,10 +109,18 @@ const onSubmit = async () => {
 
     if (isUser(response)) {
       setSigninOpen(true);
+      toastService.add({
+        severity: "success",
+        summary: "Success",
+        detail: "You have been successfully registered. Please sign in.",
+      });
     }
   } catch (e) {
-    console.log(e);
-    // TODO: add error handler.
+    toastService.add({
+      severity: "error",
+      summary: "Registration error",
+      detail: e?.data?.message,
+    });
   } finally {
     isLoading.value = false;
   }
