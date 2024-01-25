@@ -3,7 +3,7 @@ import path from 'path';
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth', '@pinia/nuxt', "nuxt-headlessui", "@vee-validate/nuxt", "@nuxtjs/cloudinary", "nuxt3-leaflet", "@ant-design-vue/nuxt", "nuxt-primevue", "@nuxt/image"],
+  modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth', 'nuxt-delay-hydration', '@pinia/nuxt', "nuxt-headlessui", "@vee-validate/nuxt", "@nuxtjs/cloudinary", "nuxt3-leaflet", "@ant-design-vue/nuxt", "nuxt-primevue", "@nuxt/image"],
   primevue: {
     //unstyled: true,
     importPT: { from: path.resolve(__dirname, './presets/lara/') },
