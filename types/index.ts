@@ -50,3 +50,11 @@ export interface IListingsParams {
   locationValue?: string;
   category?: string;
 }
+
+export interface IAccount {
+  id: string;
+  name: string | null;
+  email: string | null;
+  image: string | null;
+  favoriteIds: string[];
+}
