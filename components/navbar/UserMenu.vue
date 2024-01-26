@@ -44,15 +44,6 @@ const onRent = () => {
     setSigninOpen(true);
   }
 };
-
-const refreshAll = async () => {
-  refreshing.value = true;
-  try {
-    await refreshNuxtData();
-  } finally {
-    refreshing.value = false;
-  }
-};
 </script>
 
 <template>
