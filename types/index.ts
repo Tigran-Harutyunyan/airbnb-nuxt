@@ -30,3 +30,23 @@ export interface ILocation {
   region?: string;
   value?: string;
 };
+
+export interface IUser {
+  expires: string,
+  user: {
+    email: string
+    name: string
+    image: string
+  }
+}
+
+export interface IListingsParams {
+  userId?: string;
+  guestCount?: number;
+  roomCount?: number;
+  bathroomCount?: number;
+  startDate?: string;
+  endDate?: string;
+  locationValue?: string;
+  category?: string;
+}
