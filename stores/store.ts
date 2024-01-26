@@ -1,14 +1,14 @@
 import { defineStore } from "pinia";
-import { type IUser } from "~/types";
+import { type IAccount } from "~/types";
 
 
 export const useMainStore = defineStore("main", () => {
   const isSigninOpen = ref(false);
   const isSignupOpen = ref(false);
   const isRentModalOpen = ref(false);
-  const currentUser = ref<IUser>();
+  const currentUser = ref<IAccount>();
 
-  function setUser(user: IUser) {
+  function setUser(user: IAccount) {
     currentUser.value = user;
   }
 
@@ -32,6 +32,16 @@ export const useMainStore = defineStore("main", () => {
     isSignupOpen.value = isOpen;
   }
 
+  async function getUser() {
+    const { data } = await useFetch("/api/user", {
+      method: "get",
+    });
+
+    if (data?.value?.email) {
+      setUser(data?.value);
+    }
+  }
+
   return {
     isSigninOpen,
     isSignupOpen,
@@ -39,7 +49,7 @@ export const useMainStore = defineStore("main", () => {
     setRentModalOpen,
     setSigninOpen,
     setSignupOpen,
-    setUser,
+    getUser,
     currentUser
   };
 });
