@@ -3,24 +3,13 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import Avatar from "~/components/Avatar.vue";
 import HamburgerIcon from "~/components/ui/icons/HamburgerIcon.vue";
 import { useMainStore } from "~/stores/store";
-import { type IUser } from "~/types";
 
-const refreshing = ref(false);
+const { signOut } = useAuth();
 
-const { data, signOut } = useAuth();
-
-const { setSigninOpen, setSignupOpen, setRentModalOpen, setUser } =
+const { setSigninOpen, setSignupOpen, setRentModalOpen, getUser } =
   useMainStore();
 
-const currentUser = computed(() => {
-  return data.value as IUser;
-});
-
-watchEffect(() => {
-  if (currentUser.value) {
-    setUser(currentUser.value);
-  }
-});
+const { currentUser } = storeToRefs(useMainStore());
 
 const isOpen = ref(false);
 
@@ -38,12 +27,14 @@ const links = [
 ];
 
 const onRent = () => {
-  if (currentUser.value) {
+  if (currentUser) {
     setRentModalOpen(true);
   } else {
     setSigninOpen(true);
   }
 };
+
+getUser();
 </script>
 
 <template>
@@ -64,7 +55,7 @@ const onRent = () => {
           >
             <HamburgerIcon class="w-4 h-4 flex-shrink-0" />
             <div class="hidden md:block">
-              <Avatar :src="currentUser?.user?.image" class="max-w-[30px]" />
+              <Avatar :src="currentUser?.image" class="max-w-[30px]" />
             </div>
           </div>
         </MenuButton>
