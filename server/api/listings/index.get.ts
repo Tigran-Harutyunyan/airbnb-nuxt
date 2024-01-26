@@ -22,8 +22,8 @@ export default defineEventHandler(async (event) => {
         return null;
     }
 
-
     try {
+
         const queryParams = getQuery(event)
 
         const {
@@ -104,6 +104,5 @@ export default defineEventHandler(async (event) => {
     } catch (error: any) {
         throw new Error(error);
     }
-
 
 });
