@@ -2,14 +2,10 @@
 import EmptyState from "~/components/EmptyState.vue";
 import Container from "~/components/Container.vue";
 import ListingCard from "~/components/listings/ListingCard.vue";
-import { useMainStore } from "~/stores/store";
 import { useStringifiedUrl } from "~/composables/useStringifiedUrl";
 import { type SafeListing } from "~/types";
 
 const route = useRouter();
-
-const { currentUser } = storeToRefs(useMainStore());
-
 const { getUrl } = useStringifiedUrl("/api/listings");
 
 const { data: listings, refresh } = await useFetch<SafeListing[]>(getUrl, {
@@ -19,6 +15,7 @@ const { data: listings, refresh } = await useFetch<SafeListing[]>(getUrl, {
 watch(
   () => route,
   (value) => {
+    // Refresh data on route changes
     refresh();
   }
 );
@@ -38,7 +35,6 @@ watch(
     >
       <ListingCard
         v-for="listing in listings"
-        :currentUser="currentUser"
         :key="listing.id"
         :data="listing"
       />
