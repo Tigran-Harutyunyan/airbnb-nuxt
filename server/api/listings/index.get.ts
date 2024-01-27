@@ -102,7 +102,10 @@ export default defineEventHandler(async (event) => {
 
         return safeListings;
     } catch (error: any) {
-        throw new Error(error);
+        throw createError({
+            statusCode: 500,
+            statusMessage: error
+        });
     }
 
 });
