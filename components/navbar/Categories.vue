@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCategories } from "~/composables/useCategories.ts";
+import { useCategories } from "~/composables/useCategories";
 const route = useRoute();
 const categories = useCategories();
 
