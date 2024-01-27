@@ -4,7 +4,7 @@ import Avatar from "~/components/Avatar.vue";
 import HamburgerIcon from "~/components/ui/icons/HamburgerIcon.vue";
 import { useMainStore } from "~/stores/store";
 
-const { signOut } = useAuth();
+const { data, signOut } = useAuth();
 
 const { setSigninOpen, setSignupOpen, setRentModalOpen, getUser } =
   useMainStore();
@@ -34,7 +34,9 @@ const onRent = () => {
   }
 };
 
-getUser();
+if (data?.value) {
+  getUser();
+}
 </script>
 
 <template>
