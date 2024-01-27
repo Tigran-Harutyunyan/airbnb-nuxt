@@ -36,9 +36,6 @@ export default defineNuxtConfig({
     },
     isEnabled: true,
     baseUrl: process.env.AUTH_ORIGIN,
-    // globalAppMiddleware: {
-    //   isEnabled: true
-    // }
   },
   tailwindcss: {
     exposeConfig: true,
@@ -77,5 +74,8 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
   }
 });
