@@ -27,6 +27,7 @@ const { errors, values, meta, defineField, resetForm } = useForm({
 
 const [email, emailProps] = defineField("email");
 const [password, passwordProps] = defineField("password");
+const showSocial = ref(false);
 
 const onSubmit = () => {
   isLoading.value = true;
@@ -102,10 +103,10 @@ const onSubmit = () => {
         />
       </div>
     </form>
-    <ModalDivider />
+    <ModalDivider v-if="showSocial" />
 
     <div class="flex flex-col gap-4 mt-4">
-      <SocialLoginButtons />
+      <SocialLoginButtons v-if="showSocial" />
       <div class="text-neutral-500 text-center mt-2 font-light">
         <p>
           First time using Airbnb?

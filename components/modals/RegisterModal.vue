@@ -34,6 +34,8 @@ const [email, emailProps] = defineField("email");
 const [password, passwordProps] = defineField("password");
 const [name, nameProps] = defineField("name");
 
+const showSocial = ref(false);
+
 const onSubmit = async () => {
   isLoading.value = true;
 
@@ -125,10 +127,11 @@ const isUser = (user: any): user is User => {
       </div>
     </form>
 
-    <ModalDivider />
+    <ModalDivider v-if="showSocial" />
 
     <div class="flex flex-col gap-4 mt-4">
-      <SocialLoginButtons />
+      <SocialLoginButtons v-if="showSocial" />
+
       <div class="text-neutral-500 text-center mt-2 font-light">
         <p>
           Already have an account?
