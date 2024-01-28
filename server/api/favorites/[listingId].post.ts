@@ -1,7 +1,6 @@
 import { getServerSession } from '#auth'
 import prisma from "../../../libs/prismadb";
 
-
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event);
 
