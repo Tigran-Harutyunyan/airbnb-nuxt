@@ -11,7 +11,7 @@ const zoom = ref(center ? 4 : 2);
 </script>
 
 <template>
-  <div class="h-[35vh] rounded-lg">
+  <div class="h-[35vh] rounded-lg z-[1]">
     <LMap
       ref="map"
       :zoom="zoom"
