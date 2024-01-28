@@ -4,7 +4,9 @@ import Avatar from "~/components/Avatar.vue";
 import HamburgerIcon from "~/components/ui/icons/HamburgerIcon.vue";
 import { useMainStore } from "~/stores/store";
 
-const { data, signOut } = useAuth();
+const AUTHENTICATED = "authenticated";
+
+const { data, signOut, status } = useAuth();
 
 const { setSigninOpen, setSignupOpen, setRentModalOpen, getUser } =
   useMainStore();
@@ -24,6 +26,7 @@ const links = [
   { href: "/trips", label: "My trips" },
   { href: "/favorites", label: "My favorites" },
   { href: "/reservations", label: "My reservations" },
+  { href: "/properties", label: "My properties" },
 ];
 
 const onRent = () => {
@@ -43,6 +46,7 @@ if (data?.value) {
   <div class="relative">
     <div class="flex flex-row items-center gap-3 relative">
       <div
+        v-if="status === AUTHENTICATED"
         @click="onRent"
         class="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
       >
@@ -73,7 +77,11 @@ if (data?.value) {
             class="absolute right-0 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-md ring-1 ring-black/5 focus:outline-none"
           >
             <!-- Use the `active` state to conditionally style the active item. -->
-            <template v-if="currentUser">
+            <template v-if="status === AUTHENTICATED">
+              <p class="px-4 pt-2 pb-2 font-bold text-sm border-b-[1px]">
+                {{ currentUser?.name }}
+              </p>
+
               <MenuItem
                 v-for="link in links"
                 :key="link.href"
@@ -103,7 +111,7 @@ if (data?.value) {
                 :class="menuItemClass"
                 @click="setSignupOpen(true)"
               >
-                Sign out
+                Sign up
               </MenuItem>
             </template>
           </MenuItems>
