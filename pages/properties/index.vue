@@ -65,11 +65,7 @@ watch(
 </script>
 
 <template>
-  <ClientOnly v-if="!currentUser">
-    <EmptyState title="Unauthorized" subtitle="Please login" />
-  </ClientOnly>
-
-  <ClientOnly v-if="currentUser && !listings.length && !isLoading">
+  <ClientOnly v-if="!listings.length && !isLoading">
     <EmptyState
       title="No properties found"
       subtitle="Looks like you have no properties."

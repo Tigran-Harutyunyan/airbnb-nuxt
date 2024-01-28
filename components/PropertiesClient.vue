@@ -4,12 +4,12 @@ import ListingCard from "~/components/listings/ListingCard.vue";
 import Heading from "~/components/Heading.vue";
 import type { SafeUser, SafeListing } from "~/types";
 
-const emit = defineEmits(["delete"]);
-
 interface TripsClientProps {
   listings: SafeListing[];
   currentUser?: SafeUser | null;
 }
+const emit = defineEmits(["delete"]);
+
 const { listings, currentUser } = defineProps<TripsClientProps>();
 
 const deletingId = ref("");
