@@ -54,7 +54,7 @@ const initialForm = ref({
 
 const formData = reactive<IFormData>(getNewCopy(initialForm.value));
 
-const { setRentModalOpen } = useMainStore();
+const { setRentModalOpen, setRentCount } = useMainStore();
 const { isRentModalOpen } = storeToRefs(useMainStore());
 
 const actionLabel = computed(() => {
@@ -133,14 +133,20 @@ const onSubmit = async () => {
       severity: "success",
       summary: "Success",
       detail: "You have successfully added a property",
+      life: 4000,
     });
+
+    setRentCount();
     setRentModalOpen(false);
-    resetForm();
+    setTimeout(() => {
+      resetForm();
+    }, 300);
   } catch (e) {
     toastService.add({
       severity: "error",
       summary: "Property registration error",
       detail: e?.data?.message,
+      life: 4000,
     });
   } finally {
     isLoading.value = false;

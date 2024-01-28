@@ -1,65 +1,15 @@
-<template>
-  <Modal :isOpen="isSigninOpen" title="Login" @close="setSigninOpen(false)">
-    <form @submit.prevent="onSubmit">
-      <div class="flex flex-col gap-4">
-        <Heading title="Welcome back" subtitle="Login to your account!" />
-
-        <div>
-          <Input
-            id="email"
-            label="Email"
-            v-model="email"
-            :error="errors.email"
-            v-bind="emailProps"
-          />
-          <ErrorMessage name="email" class="error-message" />
-        </div>
-        <div>
-          <Input
-            id="password"
-            label="Password (min. 6 characters)"
-            type="password"
-            v-model="password"
-            :error="errors.password"
-            v-bind="passwordProps"
-          />
-          <ErrorMessage name="password" class="error-message" />
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-4 mt-3">
-        <hr class="my-2" />
-        <Button
-          :disabled="isLoading || !meta.valid"
-          label="Continue"
-          type="submit"
-          @click="onSubmit"
-        />
-        <SocialLoginButtons />
-        <div class="text-neutral-500 text-center mt-2 font-light">
-          <p>
-            First time using Airbnb?
-            <span
-              class="text-neutral-800 cursor-pointer underline"
-              @click="setSignupOpen(true)"
-            >
-              Create an account</span
-            >
-          </p>
-        </div>
-      </div>
-    </form>
-  </Modal>
-</template>
-
 <script setup lang="ts">
 import Heading from "~/components/Heading.vue";
 import Input from "~/components/inputs/Input.vue";
+import ModalDivider from "~/components/modals/ModalDivider.vue";
 import SocialLoginButtons from "~/components/SocialLoginButtons.vue";
 import Modal from "~/components/modals/Modal.vue";
 import * as yup from "yup";
 import { useForm, ErrorMessage } from "vee-validate";
 import { useMainStore } from "~/stores/store";
+import { useToastService } from "~/composables/useToast";
+
+const toastService = useToastService();
 
 const { signIn } = useAuth();
 
@@ -68,7 +18,7 @@ const { isSigninOpen } = storeToRefs(useMainStore());
 
 const isLoading = ref(false);
 
-const { errors, values, meta, defineField } = useForm({
+const { errors, values, meta, defineField, resetForm } = useForm({
   validationSchema: yup.object({
     email: yup.string().email().required(),
     password: yup.string().required().min(6),
@@ -87,16 +37,89 @@ const onSubmit = () => {
     redirect: false,
   }).then((response) => {
     isLoading.value = false;
-
-    if (response?.ok) {
-      setSigninOpen(false);
-      location.reload();
-      // toast.success('Logged in');
-    }
-
     if (response?.error) {
-      // toast.error(callback.error);
+      toastService.add({
+        severity: "error",
+        summary: "Error",
+        detail: "The password or email you entered is incorrect",
+      });
+    } else {
+      setSigninOpen(false);
+      toastService.add({
+        severity: "success",
+        summary: "Succes",
+        detail: "Welcome back!",
+        life: 3000,
+      });
+      location.reload();
     }
   });
 };
 </script>
+
+<template>
+  <Modal
+    :isOpen="isSigninOpen"
+    title="Login"
+    @close="
+      resetForm();
+      setSigninOpen(false);
+    "
+  >
+    <form @submit.prevent="onSubmit">
+      <div class="flex flex-col gap-4">
+        <Heading title="Welcome back" subtitle="Login to your account!" />
+
+        <div>
+          <Input
+            id="email"
+            label="Email"
+            v-model.lazy="email"
+            :error="errors.email"
+            v-bind="emailProps"
+          />
+          <ErrorMessage name="email" class="error-message" />
+        </div>
+        <div>
+          <Input
+            id="password"
+            label="Password (min. 6 characters)"
+            type="password"
+            v-model.lazy="password"
+            :error="errors.password"
+            v-bind="passwordProps"
+          />
+          <ErrorMessage name="password" class="error-message" />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 mt-6">
+        <Button
+          :disabled="isLoading || !meta.valid"
+          label="Continue"
+          type="submit"
+          @click="onSubmit"
+        />
+      </div>
+    </form>
+    <ModalDivider />
+
+    <div class="flex flex-col gap-4 mt-4">
+      <SocialLoginButtons />
+      <div class="text-neutral-500 text-center mt-2 font-light">
+        <p>
+          First time using Airbnb?
+          <span
+            class="text-neutral-800 cursor-pointer underline"
+            @click="
+              resetForm();
+              setSignupOpen(true);
+            "
+          >
+            Create an account</span
+          >
+        </p>
+      </div>
+    </div>
+  </Modal>
+</template>
