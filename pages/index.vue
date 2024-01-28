@@ -4,6 +4,9 @@ import Container from "~/components/Container.vue";
 import ListingCard from "~/components/listings/ListingCard.vue";
 import { useStringifiedUrl } from "~/composables/useStringifiedUrl";
 import { type SafeListing } from "~/types";
+import { useMainStore } from "~/stores/store";
+
+const { rentCount } = storeToRefs(useMainStore());
 
 const route = useRouter();
 const { getUrl } = useStringifiedUrl("/api/listings");
@@ -16,6 +19,14 @@ watch(
   () => route,
   (value) => {
     // Refresh data on route changes
+    refresh();
+  }
+);
+
+watch(
+  () => rentCount.value,
+  (value) => {
+    // Refresh data on create new rental
     refresh();
   }
 );
