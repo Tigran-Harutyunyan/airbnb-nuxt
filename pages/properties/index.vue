@@ -4,7 +4,6 @@ import EmptyState from "~/components/EmptyState.vue";
 import PropertiesClient from "~/components/PropertiesClient.vue";
 import { useMainStore } from "~/stores/store";
 import type { SafeListing } from "~/types";
-
 import { useToastService } from "~/composables/useToast";
 
 const toastService = useToastService();
@@ -13,7 +12,8 @@ const isLoading = ref(true);
 
 const deletingId = ref("");
 
-const { currentUser } = storeToRefs(useMainStore());
+const { currentUser, rentCount } = storeToRefs(useMainStore());
+
 const listings = ref<SafeListing[]>([]);
 
 const getProperties = async () => {
@@ -53,6 +53,13 @@ const onDelete = (id: string) => {
       deletingId.value = "";
     });
 };
+
+watch(
+  () => rentCount.value,
+  () => {
+    getProperties();
+  }
+);
 </script>
 
 <template>
