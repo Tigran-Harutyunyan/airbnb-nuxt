@@ -33,8 +33,10 @@ export default NuxtAuthHandler({
                 password: { label: 'Password', type: 'password', placeholder: '(hint: hunter2)' }
             },
             async authorize(credentials: any) {
+                const credentialsError = 'Invalid credentials';
+
                 if (!credentials?.email || !credentials?.password) {
-                    throw new Error('Invalid credentials');
+                    throw new Error(credentialsError);
                 }
 
                 const user = await prisma.user.findUnique({
@@ -45,7 +47,7 @@ export default NuxtAuthHandler({
 
 
                 if (!user || !user?.hashedPassword) {
-                    throw new Error('Invalid credentials');
+                    throw new Error(credentialsError);
                 }
 
                 const isCorrectPassword = await compare(
@@ -54,7 +56,7 @@ export default NuxtAuthHandler({
                 );
 
                 if (!isCorrectPassword) {
-                    throw new Error('Invalid credentials');
+                    throw new Error(credentialsError);
                 }
 
                 return user;
