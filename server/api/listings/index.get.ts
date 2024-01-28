@@ -3,25 +3,6 @@ import prisma from "../../../libs/prismadb";
 
 export default defineEventHandler(async (event) => {
 
-    const session = await getServerSession(event);
-
-    const account = await prisma.user.findFirst({
-        where: {
-            email: session?.user?.email
-        }
-    })
-
-    if (!account) {
-        throw createError({
-            statusCode: 500,
-            statusMessage: "Something went wrong"
-        })
-    }
-
-    if (!session?.user?.email) {
-        return null;
-    }
-
     try {
 
         const queryParams = getQuery(event)

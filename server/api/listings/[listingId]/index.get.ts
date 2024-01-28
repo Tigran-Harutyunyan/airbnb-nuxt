@@ -1,9 +1,6 @@
 import prisma from "../../../../libs/prismadb";
 
 export default defineEventHandler(async (event) => {
-    interface IParams {
-        listingId?: string;
-    }
 
     try {
         const listingId = getRouterParam(event, 'listingId');
