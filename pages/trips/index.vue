@@ -5,6 +5,8 @@ import TripsClient from "~/components/TripsClient.vue";
 import { useMainStore } from "~/stores/store";
 import type { SafeReservation } from "~/types";
 
+definePageMeta({ middleware: "auth" });
+
 import { useToastService } from "~/composables/useToast";
 
 const toastService = useToastService();
@@ -59,7 +61,7 @@ const onDelete = (id: string) => {
 
 <template>
   <ClientOnly v-if="!currentUser">
-    <EmptyState title="Unauthorized" subtitle="Please login" />
+    <EmptyState title="Unauthorized" subtitle="Please login" showLogin />
   </ClientOnly>
 
   <ClientOnly v-if="currentUser && !reservations.length && !isLoading">

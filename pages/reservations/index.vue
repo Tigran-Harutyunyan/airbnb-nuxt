@@ -3,10 +3,12 @@ import axios from "axios";
 import EmptyState from "~/components/EmptyState.vue";
 import ReservationsClient from "~/components/ReservationsClient.vue";
 import { useMainStore } from "~/stores/store";
-
 import { useToastService } from "~/composables/useToast";
 
+definePageMeta({ middleware: "auth" });
+
 const toastService = useToastService();
+
 const { currentUser } = storeToRefs(useMainStore());
 
 const isLoading = ref(true);

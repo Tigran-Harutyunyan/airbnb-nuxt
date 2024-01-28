@@ -6,6 +6,8 @@ import { useMainStore } from "~/stores/store";
 import type { SafeListing } from "~/types";
 import { useToastService } from "~/composables/useToast";
 
+definePageMeta({ middleware: "auth" });
+
 const toastService = useToastService();
 
 const isLoading = ref(true);

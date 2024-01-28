@@ -3,6 +3,8 @@ import EmptyState from "~/components/EmptyState.vue";
 import FavoritesClient from "~/components/FavoritesClient.vue";
 import { useMainStore } from "~/stores/store";
 
+definePageMeta({ middleware: "auth" });
+
 const { currentUser, favouritesCount } = storeToRefs(useMainStore());
 
 const isLoading = ref(false);
