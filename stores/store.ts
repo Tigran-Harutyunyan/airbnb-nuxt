@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { type IAccount } from "~/types";
 
-
 export const useMainStore = defineStore("main", () => {
   const isSigninOpen = ref(false);
   const isSignupOpen = ref(false);
   const isRentModalOpen = ref(false);
   const currentUser = ref<IAccount>();
+
+  const rentCount = ref(0); // dummy counter to watch for in main page to refresh after new rent.
+  const favouritesCount = ref(0); // dummy counter to watch for in favorites page to refresh after toggling the favourite.
 
   function setUser(user: IAccount) {
     currentUser.value = user;
@@ -42,14 +44,26 @@ export const useMainStore = defineStore("main", () => {
     }
   }
 
+  function setRentCount() {
+    rentCount.value++;
+  }
+
+  function setFavouriteCount() {
+    favouritesCount.value++;
+  }
+
   return {
     isSigninOpen,
     isSignupOpen,
     isRentModalOpen,
+    currentUser,
+    rentCount,
+    favouritesCount,
     setRentModalOpen,
     setSigninOpen,
     setSignupOpen,
     getUser,
-    currentUser
+    setRentCount,
+    setFavouriteCount
   };
 });
