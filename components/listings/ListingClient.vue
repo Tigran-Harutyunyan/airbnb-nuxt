@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import { differenceInDays, eachDayOfInterval } from "date-fns";
 import Container from "~/components/Container.vue";
 import ListingHead from "~/components/listings/ListingHead.vue";
 import ListingInfo from "~/components/listings/ListingInfo.vue";
 import ListingReservation from "~/components/listings/ListingReservation.vue";
+
+import { useToastService } from "~/composables/useToast";
+
 import { useCategories } from "~/composables/useCategories";
-import { differenceInDays, eachDayOfInterval } from "date-fns";
-import type { SafeListing, SafeReservation, SafeUser, Range } from "~/types";
+
+import type { SafeListing, SafeUser, Range } from "~/types";
 import { useMainStore } from "~/stores/store";
 
+const toastService = useToastService();
+
+const router = useRouter();
 const { params } = useRoute();
 
 const { setSigninOpen } = useMainStore();
@@ -28,8 +35,6 @@ const initialDateRange = ref<Range>({
   startDate: new Date(),
   endDate: new Date(),
 });
-
-// const disabledDates = ref([]);
 
 const category = computed(() => {
   return categories.find((items) => items.label === listing.category);
@@ -56,10 +61,15 @@ const onCreateReservation = async () => {
       },
     });
 
-    if (response?.listingId) {
-      // toast.success("Listing reserved!");
-      // setDateRange(initialDateRange);
-      //router.push("/trips");
+    if (response) {
+      toastService.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Listing reserved!",
+        life: 3000,
+      });
+
+      router.push("/trips");
     }
   } catch (e) {
   } finally {

@@ -16,6 +16,8 @@ interface ListingCardProps {
 const { data, reservation, actionLabel, actionId, disabled } =
   defineProps<ListingCardProps>();
 
+const emit = defineEmits(["onAction"]);
+
 const router = useRouter();
 const { getByValue } = useCountries();
 
@@ -25,7 +27,7 @@ const handleCancel = () => {
   if (disabled) {
     return;
   }
-  //onAction?.(actionId);
+  emit("onAction", actionId);
 };
 
 const getPrice = () => {
@@ -82,7 +84,7 @@ const reservationDate = () => {
         :disabled="disabled"
         small
         :label="actionLabel"
-        @click="handleCancel"
+        @click.stop="handleCancel"
       />
     </div>
   </div>
