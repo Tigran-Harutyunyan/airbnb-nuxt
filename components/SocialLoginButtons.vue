@@ -7,10 +7,10 @@ const { signIn } = useAuth();
 </script>
 
 <template>
-  <Button outline label="Continue with Google" @click="signIn('google')">
+  <Button outline label="Continue with Google" @click.stop="signIn('google')">
     <GoogleIcon />
   </Button>
-  <Button outline label="Continue with Github" @click="signIn('github')">
+  <Button outline label="Continue with Github" @click.stop="signIn('github')">
     <GithubIcon />
   </Button>
 </template>
