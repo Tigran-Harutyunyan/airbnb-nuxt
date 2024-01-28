@@ -17,3 +17,11 @@ body,
 .error-message {
   @apply text-rose-500 text-sm
 }
+
+.dp__menu {
+  border: none !important;
+}
+
+.dp__outer_menu_wrap {
+  margin: 0 auto !important; 
+}

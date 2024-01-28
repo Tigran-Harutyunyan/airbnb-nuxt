@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { SafeUser, IAccount } from "~/types";
+import type { SafeUser } from "~/types";
 import { useToastService } from "~/composables/useToast";
 
 interface IUseFavorite {
@@ -27,7 +27,8 @@ export const useFavorite = ({ listingId }: IUseFavorite) => {
                 toastService.add({
                     severity: "success",
                     summary: "Success",
-                    detail: hasFavorited ? "Listing is removed from favorites" : "listing is added to favortes"
+                    detail: hasFavorited ? "Listing is removed from favorites" : "listing is added to favortes",
+                    life: 4000
                 });
             }
 
@@ -36,6 +37,7 @@ export const useFavorite = ({ listingId }: IUseFavorite) => {
             toastService.add({
                 severity: "error",
                 summary: "Something went wrong.",
+                life: 4000
             });
         }
     }
