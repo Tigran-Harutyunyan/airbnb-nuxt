@@ -58,3 +58,8 @@ export interface IAccount {
   image: string | null;
   favoriteIds: string[];
 }
+
+export interface Range {
+  startDate: Date;
+  endDate: Date;
+}
