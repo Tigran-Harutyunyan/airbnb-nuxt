@@ -74,7 +74,7 @@ if (data?.value) {
           leave-to-class="transform scale-95 opacity-0"
         >
           <MenuItems
-            class="absolute right-0 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-md ring-1 ring-black/5 focus:outline-none"
+            class="overflow-hidden absolute right-0 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-md ring-1 ring-black/5 focus:outline-none"
           >
             <!-- Use the `active` state to conditionally style the active item. -->
             <template v-if="status === AUTHENTICATED">
