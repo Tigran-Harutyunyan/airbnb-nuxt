@@ -25,3 +25,18 @@ body,
 .dp__outer_menu_wrap {
   margin: 0 auto !important; 
 }
+
+.dp__today, .dp__range_end, .dp__range_start  {
+  border: 1px solid rgb(244 63 94 / 1) !important;
+  background: rgb(244 63 94 / 1) !important;
+}
+
+  
+.gradient {
+  background-image: linear-gradient(
+    to right,
+    #e61e4d 0%,
+    #e31c5f 50%,
+    #d70466 100%
+  );
+}

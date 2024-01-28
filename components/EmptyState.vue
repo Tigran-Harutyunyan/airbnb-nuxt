@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { useMainStore } from "~/stores/store";
+
+const { setSigninOpen } = useMainStore();
+const { currentUser } = storeToRefs(useMainStore());
+
 const { title, subtitle, showReset } = defineProps<{
   title?: string;
   subtitle?: string;
   showReset?: boolean;
+  showLogin?: boolean;
 }>();
 
 const router = useRouter();
@@ -21,6 +27,11 @@ const router = useRouter();
         outline
         label="Remove all filters"
         @click="router.push('/')"
+      />
+      <Button
+        v-if="showLogin && !currentUser"
+        label="Login"
+        @click="setSigninOpen(true)"
       />
     </div>
   </div>

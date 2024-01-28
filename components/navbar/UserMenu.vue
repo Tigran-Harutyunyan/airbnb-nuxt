@@ -78,7 +78,7 @@ if (data?.value) {
           >
             <!-- Use the `active` state to conditionally style the active item. -->
             <template v-if="status === AUTHENTICATED">
-              <p class="px-4 pt-2 pb-2 font-bold text-sm border-b-[1px]">
+              <p class="px-4 pt-3 pb-3 font-bold text-sm border-b-[1px]">
                 {{ currentUser?.name }}
               </p>
 
