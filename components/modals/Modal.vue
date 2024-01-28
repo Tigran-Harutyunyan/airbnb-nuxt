@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog as="div" @close="closeModal" class="relative z-10">
+    <Dialog as="div" class="relative z-10">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"
@@ -15,7 +15,7 @@
 
       <div class="fixed inset-0 overflow-y-auto">
         <div
-          class="flex min-h-full items-center justify-center p-4 text-center"
+          class="flex min-h-full items-center justify-center p-0 sm:p-4 text-center"
         >
           <TransitionChild
             as="template"
@@ -27,7 +27,7 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all"
+              class="w-full max-w-full h-screen sm:h-full sm:max-w-md transform sm:overflow-hidden sm:rounded-2xl bg-white text-left align-middle shadow-xl transition-all overflow-auto"
               :class="styles"
             >
               <DialogTitle
@@ -35,7 +35,7 @@
                 class="flex items-center rounded-t px-2 py-4 justify-center relative border-b-[1px] w-full"
               >
                 <span
-                  class="p-1 border-0 hover:opacity-70 transition absolute left-5"
+                  class="p-1 border-0 hover:opacity-70 transition absolute right-5"
                   @click="closeModal"
                 >
                   <ModalCloseIcon
@@ -62,6 +62,7 @@ import {
   DialogTitle,
 } from "@headlessui/vue";
 import ModalCloseIcon from "~/components/ui/icons/ModalCloseIcon.vue";
+
 const emit = defineEmits<{
   close: [];
 }>();
