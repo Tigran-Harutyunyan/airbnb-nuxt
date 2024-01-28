@@ -11,7 +11,7 @@
         transition
         border-[1px]
         w-full
-        ${outline ? 'bg-white' : 'bg-rose-500'}
+        ${outline ? 'bg-white' : 'gradient'}
         ${outline ? 'border-black' : 'border-rose-500'}
         ${outline ? 'text-black' : 'text-white'}
         ${small ? 'text-sm' : 'text-md'}
@@ -41,3 +41,13 @@ const {
   small?: boolean;
 }>();
 </script>
+<style scoped>
+.gradient {
+  background-image: linear-gradient(
+    to right,
+    #e61e4d 0%,
+    #e31c5f 50%,
+    #d70466 100%
+  );
+}
+</style>
