@@ -4,7 +4,7 @@ import OutlineHeartIcon from "~/components/ui/icons/OutlineHeartIcon.vue";
 import { useFavorite } from "~/composables/useFavorites";
 import { useMainStore } from "~/stores/store";
 
-const { getUser } = useMainStore();
+const { getUser, setFavouriteCount } = useMainStore();
 
 const { currentUser } = storeToRefs(useMainStore());
 
@@ -24,6 +24,7 @@ const { toggleFavorite } = useFavorite({
 const handleClick = async () => {
   await toggleFavorite(hasFavorited.value);
   getUser();
+  setFavouriteCount();
 };
 </script>
 
