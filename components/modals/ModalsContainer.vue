@@ -2,7 +2,7 @@
 import LoginModal from "./LoginModal.vue";
 import RegisterModal from "./RegisterModal.vue";
 import RentModal from "./RentModal.vue";
-
+import SearchModal from "./SearchModal.vue";
 const { status } = useAuth();
 </script>
 
@@ -11,6 +11,6 @@ const { status } = useAuth();
     <LoginModal />
     <RegisterModal />
   </template>
-
+  <SearchModal />
   <RentModal />
 </template>

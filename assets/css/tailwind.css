@@ -43,3 +43,16 @@ body,
   );
 }
  
+.country-selector, .p-dropdown-filter {
+  box-shadow: none !important; 
+}
+
+.country-selector:hover, .p-dropdown-filter:focus, .p-dropdown-filter:hover { 
+  border-color:  rgb(203, 213, 225) !important;
+}
+
+
+.p-dropdown-item.p-highlight {
+  background-color: rgb(253, 236, 236) !important;
+  color: #000;
+}
