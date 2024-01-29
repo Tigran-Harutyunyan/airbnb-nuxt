@@ -23,11 +23,11 @@ const onChangeDate = (data: Range) => {
 
 <template>
   <div
-    class="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden"
+    class="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden shadow-card p-2"
   >
     <div class="flex flex-row items-center gap-1 p-4">
       <div class="text-2xl font-semibold">$ {{ price }}</div>
-      <div class="font-light text-neutral-600">night</div>
+      <div class="font-light text-neutral-600 ml-2">night</div>
     </div>
     <hr />
     <Calendar
