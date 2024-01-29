@@ -23,7 +23,7 @@ const onChangeDate = (data: Range) => {
 
 <template>
   <div
-    class="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden shadow-card p-2"
+    class="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden card p-2"
   >
     <div class="flex flex-row items-center gap-1 p-4">
       <div class="text-2xl font-semibold">$ {{ price }}</div>
@@ -49,4 +49,11 @@ const onChangeDate = (data: Range) => {
     </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+.card {
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+}
+</style>
