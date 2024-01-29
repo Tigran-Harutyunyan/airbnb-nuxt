@@ -1,75 +1,34 @@
-# Nuxt 3 Minimal Starter
+# Full Stack minimalistic Airbnb with Nuxt.js App Router: Vue, Tailwind, Prisma, MongoDB, NuxtAuth.
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Demo: https://airbnb-xt5m.vercel.app/
 
-## Setup
+Features:
 
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Tailwind design
+- Tailwind animations and effects
+- Full responsiveness
+- Credential authentication via sidebase nuxt-auth module
+- Route guards via middleware
+- Vercel as deployment platform
+- Pinia as store
+- Server API routes to work with MongoDB via prisma client
+  X Google authentication (disabled for now, there are issues with registering in DB)
+  X Github authentication (disabled for now)
+- Image upload using Cloudinary CDN
+- Client form validation and handling using VeeValidate
+- Server error handling using react-toast
+- Calendars with Vue datepicker
+- Modals and menu with HeadlessUI
+- Dropdown, toast notifications with Tailwind PrimeVue library of components
+- Booking / Reservation system
+- Guest reservation cancellation
+- Owner reservation cancellation
+- Creation and deletion of properties
+- Pricing calculation
+- Advanced search algorithm by category, date range, map location, number of guests, rooms and bathrooms
+  - For example we will filter out properties that have a reservation in your desired date range to travel
+- Favorites system
+- Shareable URL filters
+  - Lets say you select a category, location and date range, you will be able to share URL with a logged out friend in another browser and they will see the same results
+- How to write POST and DELETE routes in route handlers (app/api)
+- How to fetch data in server react components by directly accessing database (WITHOUT API! like Magic!)
