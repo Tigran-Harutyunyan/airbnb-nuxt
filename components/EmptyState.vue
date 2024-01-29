@@ -22,12 +22,10 @@ const router = useRouter();
       :subtitle="subtitle || 'Try changing or removing some of your filters.'"
     />
     <div class="w-48 mt-4">
-      <Button
-        v-if="showReset"
-        outline
-        label="Remove all filters"
-        @click="router.push('/')"
-      />
+      <nuxt-link v-if="showReset" to="/">
+        <Button outline label="Remove all filters" />
+      </nuxt-link>
+
       <Button
         v-if="showLogin && !currentUser"
         label="Login"
