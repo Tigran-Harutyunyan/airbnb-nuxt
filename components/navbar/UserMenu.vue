@@ -82,7 +82,9 @@ if (data?.value) {
               <p class="px-4 pt-3 pb-3 font-bold text-sm border-b-[1px]">
                 {{ currentUser?.name }}
               </p>
-
+              <MenuItem as="li" :class="menuItemLiClass" @click="onRent()">
+                Airbnb your home
+              </MenuItem>
               <MenuItem
                 v-slot="{ close }"
                 v-for="link in links"
@@ -98,9 +100,7 @@ if (data?.value) {
                   >{{ link.label }}</nuxt-link
                 >
               </MenuItem>
-              <MenuItem as="li" :class="menuItemLiClass" @click="onRent()">
-                Airbnb your home
-              </MenuItem>
+
               <MenuItem as="li" :class="menuItemLiClass" @click="signOut()">
                 Sign out
               </MenuItem>
