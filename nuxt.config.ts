@@ -3,6 +3,13 @@ import path from 'path';
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  nitro: {
+    compressPublicAssets: true,
+    brotli: true,
+    prerender: {
+      crawlLinks: true
+    }
+  },
   modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth', 'nuxt-delay-hydration', '@pinia/nuxt', "nuxt-headlessui", "@vee-validate/nuxt", "@nuxtjs/cloudinary", "nuxt3-leaflet", "nuxt-primevue", "@nuxt/image"],
   primevue: {
     //unstyled: true,
@@ -11,6 +18,11 @@ export default defineNuxtConfig({
       include: ['Dropdown', 'Toast', 'ProgressSpinner'],
       exclude: ['Editor', 'Chart']
     }
+  },
+  delayHydration: {
+    mode: 'mount',
+    exclude: [
+    ],
   },
   app: {
     head: {
