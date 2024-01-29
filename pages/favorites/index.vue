@@ -32,10 +32,6 @@ watch(
 </script>
 
 <template>
-  <ClientOnly v-if="!currentUser">
-    <EmptyState title="Unauthorized" subtitle="Please login" />
-  </ClientOnly>
-
   <ClientOnly v-if="currentUser && !listings.length && !isLoading">
     <EmptyState
       title="No favorites found"

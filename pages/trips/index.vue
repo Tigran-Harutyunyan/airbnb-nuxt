@@ -60,10 +60,6 @@ const onDelete = (id: string) => {
 </script>
 
 <template>
-  <ClientOnly v-if="!currentUser">
-    <EmptyState title="Unauthorized" subtitle="Please login" showLogin />
-  </ClientOnly>
-
   <ClientOnly v-if="currentUser && !reservations.length && !isLoading">
     <EmptyState
       title="No trips found"
