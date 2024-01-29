@@ -27,9 +27,10 @@ body,
 }
 
 .dp__today, .dp__range_end, .dp__range_start  {
-  border: 1px solid rgb(244 63 94 / 1) !important;
-  background: rgb(244 63 94 / 1) !important;
-  color: white
+  border: 1px solid black !important;
+  background: black !important;
+  color: white;
+  border-radius: 50% !important;
 }
 
   
@@ -41,3 +42,4 @@ body,
     #d70466 100%
   );
 }
+ 
