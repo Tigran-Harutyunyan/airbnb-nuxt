@@ -16,7 +16,8 @@ const { currentUser } = storeToRefs(useMainStore());
 const isOpen = ref(false);
 
 const menuItemClass =
-  "px-4 py-3 text-sm hover:bg-neutral-100 transition font-semibold inline-block w-full cursor-pointer";
+  "px-4  text-sm hover:bg-neutral-100 transition font-semibold inline-block w-full cursor-pointer";
+const menuItemLiClass = menuItemClass + " py-3";
 
 const toggleOpen = () => {
   isOpen.value = !isOpen.value;
@@ -83,32 +84,38 @@ if (data?.value) {
               </p>
 
               <MenuItem
+                v-slot="{ close }"
                 v-for="link in links"
                 :key="link.href"
                 :href="link.href"
-                as="a"
+                as="li"
                 :class="menuItemClass"
               >
-                {{ link.label }}
+                <nuxt-link
+                  :to="link.href"
+                  @click="close"
+                  class="block w-full py-3"
+                  >{{ link.label }}</nuxt-link
+                >
               </MenuItem>
-              <MenuItem as="li" :class="menuItemClass" @click="onRent()">
+              <MenuItem as="li" :class="menuItemLiClass" @click="onRent()">
                 Airbnb your home
               </MenuItem>
-              <MenuItem as="li" :class="menuItemClass" @click="signOut()">
+              <MenuItem as="li" :class="menuItemLiClass" @click="signOut()">
                 Sign out
               </MenuItem>
             </template>
             <template v-else>
               <MenuItem
                 as="li"
-                :class="menuItemClass"
+                :class="menuItemLiClass"
                 @click="setSigninOpen(true)"
               >
                 Sign in
               </MenuItem>
               <MenuItem
                 as="li"
-                :class="menuItemClass"
+                :class="menuItemLiClass"
                 @click="setSignupOpen(true)"
               >
                 Sign up
