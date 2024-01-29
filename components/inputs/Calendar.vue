@@ -37,3 +37,31 @@ const onRangeChange = async () => {
     :min-date="new Date()"
   />
 </template>
+<style>
+.dp__menu {
+  border: none !important;
+}
+
+.dp__outer_menu_wrap {
+  margin: 0 auto !important;
+}
+
+.dp__today,
+.dp__range_end,
+.dp__range_start {
+  border: 1px solid black !important;
+  background: black !important;
+  color: white;
+}
+
+.dp__calendar_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.dp__cell_inner {
+  border-radius: 0 !important;
+}
+</style>

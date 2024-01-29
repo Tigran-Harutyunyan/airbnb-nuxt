@@ -18,20 +18,6 @@ body,
   @apply text-rose-500 text-sm
 }
 
-.dp__menu {
-  border: none !important;
-}
-
-.dp__outer_menu_wrap {
-  margin: 0 auto !important; 
-}
-
-.dp__today, .dp__range_end, .dp__range_start  {
-  border: 1px solid black !important;
-  background: black !important;
-  color: white;
-  border-radius: 50% !important;
-}
 
   
 .gradient {
@@ -50,7 +36,6 @@ body,
 .country-selector:hover, .p-dropdown-filter:focus, .p-dropdown-filter:hover { 
   border-color:  rgb(203, 213, 225) !important;
 }
-
 
 .p-dropdown-item.p-highlight {
   background-color: rgb(253, 236, 236) !important;
