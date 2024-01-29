@@ -5,6 +5,7 @@ export const useMainStore = defineStore("main", () => {
   const isSigninOpen = ref(false);
   const isSignupOpen = ref(false);
   const isRentModalOpen = ref(false);
+  const isSearchModalOpen = ref(false);
   const currentUser = ref<IAccount>();
 
   const rentCount = ref(0); // dummy counter to watch for in main page to refresh after new rent.
@@ -16,6 +17,10 @@ export const useMainStore = defineStore("main", () => {
 
   function setRentModalOpen(isOpen: boolean) {
     isRentModalOpen.value = isOpen;
+  }
+
+  function setSearchModalOpen(isOpen: boolean) {
+    isSearchModalOpen.value = isOpen;
   }
 
   function setSigninOpen(isOpen: boolean) {
@@ -59,11 +64,13 @@ export const useMainStore = defineStore("main", () => {
     currentUser,
     rentCount,
     favouritesCount,
+    isSearchModalOpen,
     setRentModalOpen,
     setSigninOpen,
     setSignupOpen,
     getUser,
     setRentCount,
-    setFavouriteCount
+    setFavouriteCount,
+    setSearchModalOpen
   };
 });
