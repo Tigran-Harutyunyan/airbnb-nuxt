@@ -5,6 +5,10 @@ import ReservationsClient from "~/components/ReservationsClient.vue";
 import { useMainStore } from "~/stores/store";
 import { useToastService } from "~/composables/useToast";
 
+useHead({
+  title: "Airbnb | My reservations",
+});
+
 definePageMeta({ middleware: "auth" });
 
 const toastService = useToastService();

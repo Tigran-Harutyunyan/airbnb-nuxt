@@ -5,6 +5,10 @@ import EmptyState from "~/components/EmptyState.vue";
 const { params } = useRoute();
 
 const { data: listing } = await useFetch(`/api/listings/${params.listingId}`);
+
+useHead({
+  title: `Airbnb | ${listing?.value?.title}`,
+});
 </script>
 
 <template>

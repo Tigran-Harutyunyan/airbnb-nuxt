@@ -5,6 +5,10 @@ import TripsClient from "~/components/TripsClient.vue";
 import { useMainStore } from "~/stores/store";
 import type { SafeReservation } from "~/types";
 
+useHead({
+  title: "Airbnb | My trips",
+});
+
 definePageMeta({ middleware: "auth" });
 
 import { useToastService } from "~/composables/useToast";

@@ -3,6 +3,10 @@ import EmptyState from "~/components/EmptyState.vue";
 import FavoritesClient from "~/components/FavoritesClient.vue";
 import { useMainStore } from "~/stores/store";
 
+useHead({
+  title: "Airbnb | My favourits",
+});
+
 definePageMeta({ middleware: "auth" });
 
 const { currentUser, favouritesCount } = storeToRefs(useMainStore());

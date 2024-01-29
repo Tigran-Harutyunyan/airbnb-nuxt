@@ -8,6 +8,10 @@ import { useToastService } from "~/composables/useToast";
 
 definePageMeta({ middleware: "auth" });
 
+useHead({
+  title: "Airbnb | My properties",
+});
+
 const toastService = useToastService();
 
 const isLoading = ref(true);

@@ -6,6 +6,10 @@ import { useStringifiedUrl } from "~/composables/useStringifiedUrl";
 import { type SafeListing } from "~/types";
 import { useMainStore } from "~/stores/store";
 
+useHead({
+  title: "Airbnb | Welcome to you dream location.",
+});
+
 const { rentCount } = storeToRefs(useMainStore());
 
 const route = useRouter();
