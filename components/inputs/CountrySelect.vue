@@ -14,10 +14,11 @@ const options = ref(getAll());
   <Dropdown
     v-model="modelValue"
     filter
+    showClear
     :options="options"
     optionLabel="label"
     placeholder="Select your country"
-    class="w-full"
+    class="w-full country-selector"
   >
     <template #value="slotProps">
       <div v-if="slotProps.value" class="flex items-center">
