@@ -4,7 +4,8 @@ import OutlineHeartIcon from "~/components/ui/icons/OutlineHeartIcon.vue";
 import { useFavorite } from "~/composables/useFavorites";
 import { useMainStore } from "~/stores/store";
 
-const { getUser, setFavouriteCount } = useMainStore();
+const { status } = useAuth();
+const { getUser, setFavouriteCount, setSigninOpen } = useMainStore();
 
 const { currentUser } = storeToRefs(useMainStore());
 
@@ -22,6 +23,10 @@ const { toggleFavorite } = useFavorite({
 });
 
 const handleClick = async () => {
+  if (status?.value !== "authenticated") {
+    setSigninOpen(true);
+    return;
+  }
   await toggleFavorite(hasFavorited.value);
   getUser();
   setFavouriteCount();
