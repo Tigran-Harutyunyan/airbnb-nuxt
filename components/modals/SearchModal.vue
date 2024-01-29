@@ -16,6 +16,8 @@ const { setSearchModalOpen } = useMainStore();
 const params = useRoute().query;
 const router = useRouter();
 
+const showForm = ref(true);
+
 interface IFormData {
   location?: ILocation | null;
   guestCount: number;
@@ -27,8 +29,7 @@ interface IFormData {
     key: string;
   };
 }
-
-const formData = reactive<IFormData>({
+const initialForm = reactive<IFormData>({
   location: null,
   guestCount: 1,
   roomCount: 1,
@@ -39,6 +40,7 @@ const formData = reactive<IFormData>({
     key: "selection",
   },
 });
+const formData = reactive<IFormData>(getNewCopy(initialForm));
 
 enum STEPS {
   LOCATION = 0,
@@ -116,8 +118,10 @@ const onSubmit = async () => {
     { skipNull: true }
   );
 
-  step.value = STEPS.LOCATION;
   setSearchModalOpen(false);
+
+  resetForm();
+
   setTimeout(() => {
     router.push(url);
   }, 300);
@@ -130,6 +134,18 @@ const onChangeDate = (data: Range) => {
 const onCounterChange = (info: any) => {
   Object.assign(formData, info);
 };
+
+const resetForm = async () => {
+  showForm.value = false;
+  Object.assign(formData, getNewCopy(initialForm));
+  await nextTick();
+  showForm.value = true;
+  step.value = STEPS.LOCATION;
+};
+
+function getNewCopy(obj: object) {
+  return JSON.parse(JSON.stringify(obj));
+}
 </script>
 
 <template>
@@ -139,58 +155,60 @@ const onCounterChange = (info: any) => {
     @close="setSearchModalOpen(false)"
     styles="max-w-[570px]"
   >
-    <div class="flex flex-col gap-8" v-show="step === STEPS.LOCATION">
-      <Heading
-        title="Where is your place located?"
-        subtitle="Help guests find you!"
-      />
-      <CountrySelect v-model="formData.location" />
-      <Map v-if="formData.location" :center="formData.location?.latlng" />
-    </div>
-    <div class="flex flex-col gap-8" v-show="step === STEPS.DATE">
-      <Calendar class="mx-auto" :range="dateRange" @onChange="onChangeDate" />
-    </div>
+    <div v-if="showForm">
+      <div class="flex flex-col gap-8" v-show="step === STEPS.LOCATION">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
+        />
+        <CountrySelect v-model="formData.location" />
+        <Map v-if="formData.location" :center="formData.location?.latlng" />
+      </div>
+      <div class="flex flex-col gap-8" v-show="step === STEPS.DATE">
+        <Calendar class="mx-auto" :range="dateRange" @onChange="onChangeDate" />
+      </div>
 
-    <div class="flex flex-col gap-8" v-show="step === STEPS.INFO">
-      <Counter
-        id="guestCount"
-        title="Guests"
-        subtitle="How many guests are coming?"
-        :count="formData.guestCount"
-        @change="onCounterChange"
-      />
-      <hr />
-      <Counter
-        id="roomCount"
-        title="Rooms"
-        subtitle="How many rooms do you need?"
-        :count="formData.roomCount"
-        @change="onCounterChange"
-      />
-      <hr />
-      <Counter
-        id="bathroomCount"
-        title="Bathrooms"
-        subtitle="How many bathrooms do you need?"
-        :count="formData.bathroomCount"
-        @change="onCounterChange"
-      />
-    </div>
-    <!-- Buttons -->
-    <div class="flex flex-col gap-2 pt-6">
-      <div class="flex flex-row items-center gap-4 w-full">
-        <Button
-          v-if="secondaryActionLabel"
-          :label="secondaryActionLabel"
-          @click="onBack"
-          outline
+      <div class="flex flex-col gap-8" v-show="step === STEPS.INFO">
+        <Counter
+          id="guestCount"
+          title="Guests"
+          subtitle="How many guests are coming?"
+          :count="formData.guestCount"
+          @change="onCounterChange"
         />
-        <Button
-          :disabled="nextStepIsDisabled"
-          :label="actionLabel"
-          type="submit"
-          @click="onSubmit"
+        <hr />
+        <Counter
+          id="roomCount"
+          title="Rooms"
+          subtitle="How many rooms do you need?"
+          :count="formData.roomCount"
+          @change="onCounterChange"
         />
+        <hr />
+        <Counter
+          id="bathroomCount"
+          title="Bathrooms"
+          subtitle="How many bathrooms do you need?"
+          :count="formData.bathroomCount"
+          @change="onCounterChange"
+        />
+      </div>
+      <!-- Buttons -->
+      <div class="flex flex-col gap-2 pt-6">
+        <div class="flex flex-row items-center gap-4 w-full">
+          <Button
+            v-if="secondaryActionLabel"
+            :label="secondaryActionLabel"
+            @click="onBack"
+            outline
+          />
+          <Button
+            :disabled="nextStepIsDisabled"
+            :label="actionLabel"
+            type="submit"
+            @click="onSubmit"
+          />
+        </div>
       </div>
     </div>
   </Modal>
