@@ -1,14 +1,26 @@
 <script setup lang="ts">
-import BiSearchIcon from "~/components/ui/icons/BiSearchIcon.vue";
 import { differenceInDays } from "date-fns";
+import BiSearchIcon from "~/components/ui/icons/BiSearchIcon.vue";
 import { useCountries } from "~/composables/useCountries";
+import { useMainStore } from "~/stores/store";
+
+const { setSearchModalOpen } = useMainStore();
 
 const route = useRoute();
-const locationValue = ref(route?.query?.locationValue);
-const startDate = ref(route?.query?.startDate);
-const endDate = ref(route?.query?.endDate);
-const guestCount = ref(route?.query?.guestCount);
+const locationValue = ref();
+const startDate = ref();
+const endDate = ref();
+const guestCount = ref();
 const { getByValue } = useCountries();
+
+const parseQuery = () => {
+  const { query } = useRoute();
+
+  locationValue.value = query?.locationValue;
+  startDate.value = query?.startDate;
+  endDate.value = query?.endDate;
+  guestCount.value = query?.guestCount;
+};
 
 const durationLabel = computed(() => {
   if (startDate.value && endDate.value) {
@@ -28,7 +40,7 @@ const durationLabel = computed(() => {
 
 const guestLabel = computed(() => {
   if (guestCount.value) {
-    return `${guestCount} Guests`;
+    return `${guestCount.value} Guests`;
   }
 
   return "Add Guests";
@@ -41,11 +53,19 @@ const locationLabel = computed(() => {
 
   return "Anywhere";
 });
+
+watch(
+  () => route.path,
+  () => {
+    parseQuery();
+  },
+  { immediate: true, deep: true }
+);
 </script>
 
 <template>
   <div
-    @click="searchModal.onOpen"
+    @click="setSearchModalOpen(true)"
     class="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
   >
     <div class="flex flex-row items-center justify-between">
