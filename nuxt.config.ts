@@ -38,6 +38,8 @@ export default defineNuxtConfig({
         { name: 'keywords', content: 'Nuxt Airbnb' },
       ],
       link: [
+        { rel: 'icon', type: 'image/x-icon', href: 'https://a0.muscache.com/airbnb/static/logotype_favicon-21cc8e6c6a2cca43f061d2dcabdf6e58.ico' },
+
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Raleway:wght@400;500;600;700&display=swap' }
       ]
     },
