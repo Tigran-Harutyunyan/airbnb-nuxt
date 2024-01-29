@@ -15,7 +15,7 @@
         ${outline ? 'border-black' : 'border-rose-500'}
         ${outline ? 'text-black' : 'text-white'}
         ${small ? 'text-sm' : 'text-md'}
-        ${small ? 'py-1' : 'py-3'}
+        ${small ? 'py-2' : 'py-3'}
         ${small ? 'font-light' : 'font-semibold'} 
       `"
   >
