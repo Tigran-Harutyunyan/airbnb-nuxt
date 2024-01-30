@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import * as yup from "yup";
+import { useForm, ErrorMessage } from "vee-validate";
 import Heading from "~/components/Heading.vue";
 import Input from "~/components/inputs/Input.vue";
 import ModalDivider from "~/components/modals/ModalDivider.vue";
 import SocialLoginButtons from "~/components/SocialLoginButtons.vue";
 import Modal from "~/components/modals/Modal.vue";
-import * as yup from "yup";
-import { useForm, ErrorMessage } from "vee-validate";
+
 import { useMainStore } from "~/stores/store";
 import { useToastService } from "~/composables/useToast";
 

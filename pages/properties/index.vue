@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import EmptyState from "~/components/EmptyState.vue";
-import PropertiesClient from "~/components/PropertiesClient.vue";
+import PropertiesClient from "~/components/clients/PropertiesClient.vue";
 import { useMainStore } from "~/stores/store";
 import type { SafeListing } from "~/types";
 import { useToastService } from "~/composables/useToast";

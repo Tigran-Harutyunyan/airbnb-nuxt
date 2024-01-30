@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import EmptyState from "~/components/EmptyState.vue";
-import TripsClient from "~/components/TripsClient.vue";
+import TripsClient from "~/components/clients/TripsClient.vue";
 import { useMainStore } from "~/stores/store";
 import type { SafeReservation } from "~/types";
 
@@ -20,6 +20,7 @@ const isLoading = ref(true);
 const deletingId = ref("");
 
 const { currentUser } = storeToRefs(useMainStore());
+
 const reservations = ref<SafeReservation[]>([]);
 
 const getReservations = async () => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListingClient from "~/components/listings/ListingClient.vue";
+import ListingClient from "~/components/clients/ListingClient.vue";
 import EmptyState from "~/components/EmptyState.vue";
 
 const { params } = useRoute();

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import EmptyState from "~/components/EmptyState.vue";
-import FavoritesClient from "~/components/FavoritesClient.vue";
+import FavoritesClient from "~/components/clients/FavoritesClient.vue";
 import { useMainStore } from "~/stores/store";
 
 useHead({

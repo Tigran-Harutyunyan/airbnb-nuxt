@@ -116,7 +116,7 @@ const disabledDates = computed(() => {
   return dates;
 });
 
-let reservations = ref([]);
+let reservations = ref();
 
 const getReservations = async () => {
   try {
