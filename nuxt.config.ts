@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       crawlLinks: true
     }
   },
-  modules: ['@nuxtjs/tailwindcss', '@sidebase/nuxt-auth', 'nuxt-delay-hydration', '@pinia/nuxt', "nuxt-headlessui", "@vee-validate/nuxt", "@nuxtjs/cloudinary", "nuxt3-leaflet", "nuxt-primevue", "@nuxt/image"],
+  modules: ['@nuxtjs/tailwindcss', '@samk-dev/nuxt-vcalendar', '@sidebase/nuxt-auth', 'nuxt-delay-hydration', '@pinia/nuxt', "nuxt-headlessui", "@vee-validate/nuxt", "@nuxtjs/cloudinary", "nuxt3-leaflet", "nuxt-primevue", "@nuxt/image"],
   primevue: {
     //unstyled: true,
     importPT: { from: path.resolve(__dirname, './presets/lara/') },

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
 import { type Range } from "~/types";
 
 interface DatePickerProps {
@@ -11,57 +9,80 @@ interface DatePickerProps {
 const { range, disabledDates } = defineProps<DatePickerProps>();
 const emit = defineEmits(["onChange"]);
 
-const localDateRange = ref<Date[]>([]);
+const localDateRange = ref({
+  start: range.startDate,
+  end: range.endDate,
+});
 
-if (range.startDate) localDateRange.value[0] = range.startDate;
-if (range.endDate) localDateRange.value[1] = range.endDate;
-
-const onRangeChange = async () => {
-  await nextTick;
-  emit("onChange", {
-    startDate: localDateRange.value[0],
-    endDate: localDateRange.value[1],
-  });
-};
+watch(
+  localDateRange,
+  () => {
+    console.log(localDateRange);
+    emit("onChange", {
+      startDate: localDateRange.value.start,
+      endDate: localDateRange.value.end,
+    });
+  },
+  {
+    deep: true,
+  }
+);
 </script>
 
 <template>
-  <VueDatePicker
-    v-model="localDateRange"
-    :disabled-dates="disabledDates"
-    @range-end="onRangeChange"
-    range
-    inline
-    auto-apply
-    :enable-time-picker="false"
-    :min-date="new Date()"
-  />
+  <ClientOnly>
+    <VDatePicker
+      borderless
+      v-model.range="localDateRange"
+      :disabled-dates="disabledDates"
+      :min-date="new Date()"
+      mode="date"
+      class="date-picker"
+    />
+  </ClientOnly>
 </template>
 <style>
-.dp__menu {
-  border: none !important;
+.date-picker {
+  width: 100%;
+  border: none;
+  margin-top: 20px;
+}
+.vc-header {
+  margin-bottom: 10px;
 }
 
-.dp__outer_menu_wrap {
-  margin: 0 auto !important;
+.vc-highlight-bg-light {
+  background-color: #e5e5e5;
 }
 
-.dp__today,
-.dp__range_end,
-.dp__range_start {
-  border: 1px solid black !important;
-  background: black !important;
-  color: white;
+.vc-highlight-content-light {
+  color: black;
+  font-style: normal;
 }
 
-.dp__calendar_row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 0;
+.vc-disabled {
+  text-decoration: line-through;
 }
 
-.dp__cell_inner {
-  border-radius: 0 !important;
+.vc-highlight-content-solid,
+.vc-highlight-content-solid.vc-focus {
+  background: #000;
+}
+
+.vc-highlight-content-outline {
+  border-color: black;
+}
+
+.vc-highlight.vc-highlight-bg-outline {
+  border-color: black;
+  color: black;
+}
+
+.vc-day-content.vc-highlight-content-outline {
+  color: black;
+}
+.vc-day-content.vc-highlight-content-outline.vc-focus {
+  box-shadow: rgba(134, 141, 152, 0.4) 0px 0px 0px 2px;
 }
 </style>
+<!-- rgba(59, 131, 246, 0.4) 0px 0px 0px 2px -->
