@@ -4,9 +4,10 @@ import GoogleProvider from 'next-auth/providers/google'
 import { NuxtAuthHandler } from '#auth';
 import { compare } from "bcrypt-ts";
 import prisma from "../../../libs/prismadb";
-
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 export default NuxtAuthHandler({
-    // TODO: SET A STRONG SECRET, SEE https://sidebase.io/nuxt-auth/configuration/nuxt-auth-handler#secret
+
+    adapter: PrismaAdapter(prisma),
     secret: process.env.NEXTAUTH_SECRET || 'my-auth-secret',
     // TODO: ADD YOUR OWN AUTHENTICATION PROVIDER HERE, READ THE DOCS FOR MORE: https://sidebase.io/nuxt-auth
     providers: [
@@ -62,5 +63,11 @@ export default NuxtAuthHandler({
                 return user;
             }
         })
-    ]
+    ],
+    session: {
+        strategy: 'jwt'
+    },
+    pages: {
+        signIn: '/'
+    },
 })

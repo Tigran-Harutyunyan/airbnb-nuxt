@@ -23,6 +23,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^1.0.7",
     "@nuxtjs/cloudinary": "^2.5.2",
     "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "^5.8.1",

@@ -12,8 +12,8 @@ Features:
 - Vercel as deployment platform
 - Pinia as store
 - Server API routes to work with MongoDB via prisma client
-  X Google authentication (disabled for now, there are issues with registering in DB)
-  X Github authentication (disabled for now)
+- Google authentication
+- Github authentication
 - Image upload using Cloudinary CDN
 - Client form validation and handling using VeeValidate
 - Server error handling using react-toast

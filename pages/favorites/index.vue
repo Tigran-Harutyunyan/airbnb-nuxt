@@ -2,6 +2,7 @@
 import EmptyState from "~/components/EmptyState.vue";
 import FavoritesClient from "~/components/clients/FavoritesClient.vue";
 import { useMainStore } from "~/stores/store";
+import type { SafeListing } from "~/types";
 
 useHead({
   title: "Airbnb | My favourits",
@@ -13,14 +14,14 @@ const { currentUser, favouritesCount } = storeToRefs(useMainStore());
 
 const isLoading = ref(false);
 
-const listings = ref([]);
+const listings = ref<SafeListing[]>([]);
 
 const getFavorites = async () => {
   isLoading.value = true;
   const response = await $fetch("/api/favorites");
 
   if (response && Array.isArray(response)) {
-    listings.value = response;
+    listings.value = response as SafeListing[];
   }
   isLoading.value = false;
 };

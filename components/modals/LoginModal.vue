@@ -28,7 +28,7 @@ const { errors, values, meta, defineField, resetForm } = useForm({
 
 const [email, emailProps] = defineField("email");
 const [password, passwordProps] = defineField("password");
-const showSocial = ref(false);
+const showSocial = ref(true);
 
 const onSubmit = () => {
   isLoading.value = true;
