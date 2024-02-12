@@ -71,6 +71,7 @@ export const useMainStore = defineStore("main", () => {
     getUser,
     setRentCount,
     setFavouriteCount,
-    setSearchModalOpen
+    setSearchModalOpen,
+    setUser
   };
 });

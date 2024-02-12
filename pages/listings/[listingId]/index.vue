@@ -18,7 +18,5 @@ useHead({
     </ClientOnly>
   </template>
 
-  <ClientOnly v-else>
-    <ListingClient :listing="listing" />
-  </ClientOnly>
+  <ListingClient :listing="listing" v-else />
 </template>

@@ -8,7 +8,7 @@ const AUTHENTICATED = "authenticated";
 
 const { data, signOut, status } = useAuth();
 
-const { setSigninOpen, setSignupOpen, setRentModalOpen, getUser } =
+const { setSigninOpen, setSignupOpen, setRentModalOpen, setUser } =
   useMainStore();
 
 const { currentUser } = storeToRefs(useMainStore());
@@ -38,8 +38,9 @@ const onRent = () => {
   }
 };
 
-if (data?.value) {
-  getUser();
+console.log(data?.value?.user);
+if (data?.value?.user) {
+  setUser(data?.value.user);
 }
 </script>
 
