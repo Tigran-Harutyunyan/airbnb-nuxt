@@ -23,7 +23,7 @@ export const useFavorite = ({ listingId }: IUseFavorite) => {
 
             const response = await request();
 
-            if (response?.id) {
+            if (response?.data?.id) {
                 toastService.add({
                     severity: "success",
                     summary: "Success",
