@@ -38,9 +38,8 @@ const onRent = () => {
   }
 };
 
-console.log(data?.value?.user);
 if (data?.value?.user) {
-  setUser(data?.value.user);
+  setUser(data.value.user);
 }
 </script>
 
