@@ -1,6 +1,6 @@
 # Full Stack minimalistic Airbnb with Nuxt.js App Router: Vue, Tailwind, Prisma, MongoDB, NuxtAuth.
 
-Demo: https://airbnb-xt5m.vercel.app/
+Demo - [Airbnb with nuxt3](https://airbnb-xt5m.vercel.app)
 
 Features:
 
