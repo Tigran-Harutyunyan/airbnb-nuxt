@@ -1,12 +1,6 @@
-# Full Stack minimalistic Airbnb with Nuxt.js App Router: Vue, Tailwind, Prisma, MongoDB, NuxtAuth.
+# Full Stack minimalistic Airbnb with Nuxt.js: Vue, Tailwind, Prisma, MongoDB, NuxtAuth.
 
 [Live Demo](https://airbnb-xt5m.vercel.app)
-
-<img width="1182" alt="Screen Shot 2023-07-10 at 11 27 03 PM" src="/assets/images/1.png">
-
-<img width="1182" alt="Screen Shot 2023-07-10 at 11 27 03 PM" src="/assets/images/3.png">
-
-<img width="1182" alt="Screen Shot 2023-07-10 at 11 27 03 PM" src="/assets/images/4.png">
 
 Features:
 
@@ -21,8 +15,7 @@ Features:
 - Google authentication
 - Github authentication
 - Image upload using Cloudinary CDN
-- Client form validation and handling using VeeValidate
-- Server error handling using react-toast
+- Client form validation and handling using Vee Validate
 - Calendars with Vue datepicker
 - Modals and menu with HeadlessUI
 - Dropdown, toast notifications with Tailwind PrimeVue library of components
@@ -36,5 +29,9 @@ Features:
 - Favorites system
 - Shareable URL filters
   - Lets say you select a category, location and date range, you will be able to share URL with a logged out friend in another browser and they will see the same results
-- How to write POST and DELETE routes in route handlers (app/api)
-- How to fetch data in server react components by directly accessing database (WITHOUT API! like Magic!)
+
+<img width="1182" alt="Screen Shot 2023-07-10 at 11 27 03 PM" src="/assets/images/1.png">
+
+<img width="1182" alt="Screen Shot 2023-07-10 at 11 27 03 PM" src="/assets/images/3.png">
+
+<img width="1182" alt="Screen Shot 2023-07-10 at 11 27 03 PM" src="/assets/images/4.png">
